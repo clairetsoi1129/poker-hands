@@ -3,30 +3,35 @@ import java.util.stream.Collectors;
 
 public class Hand implements Comparable<Hand>{
     private final List<Card> cards;
-    private HashMap<Value,Integer> cardMap;
+    private HashMap<Value,Integer> cardValueMap;
+    private HashMap<Suit,Integer> cardSuitMap;
 
     private final List<Value> pairs;
     private Value threeOfAKind;
 
     private Value straight;
 
+    private List<Value> flush;
+
     public Hand(List<Card> cards) {
         this.cards = cards;
 
-        cardMap = new LinkedHashMap<>();
+        cardValueMap = new LinkedHashMap<>();
         for (Card card : cards) {
-            cardMap.merge(card.getValue(), 1, Integer::sum);
+            cardValueMap.merge(card.getValue(), 1, Integer::sum);
         }
 
+        // Check pairs /  3 of a kind
         pairs = new ArrayList<>();
-        for (Value key:cardMap.keySet()){
-            if (cardMap.get(key) == 2){
+        for (Value key: cardValueMap.keySet()){
+            if (cardValueMap.get(key) == 2){
                 pairs.add(key);
-            }else if (cardMap.get(key) == 3){
+            }else if (cardValueMap.get(key) == 3){
                 threeOfAKind = key;
             }
         }
 
+        // Check Straight
         List<Card> sortedCards = this.sort();
         straight = sortedCards.get(0).getValue();
         for (int i=0; i<sortedCards.size()-1; i++) {
@@ -35,6 +40,24 @@ public class Hand implements Comparable<Hand>{
                 break;
             }
         }
+
+
+        // Check Flush
+        cardSuitMap = new LinkedHashMap<>();
+        for (Card card : sortedCards) {
+            cardSuitMap.merge(card.getSuit(), 1, Integer::sum);
+        }
+        flush = new ArrayList<>();
+        for (Suit key: cardSuitMap.keySet()){
+            if (cardSuitMap.get(key) == 5){
+                for (Card card : sortedCards) {
+                    flush.add(card.getValue());
+                }
+            }
+        }
+
+
+
     }
 
     public List<Card> sort(){
@@ -62,5 +85,9 @@ public class Hand implements Comparable<Hand>{
 
     public Value getStraight() {
         return straight;
+    }
+
+    public List<Value> getFlush() {
+        return flush;
     }
 }

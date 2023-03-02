@@ -73,4 +73,23 @@ public class HandTest {
         assertEquals(Value.SIX, handBlack.getStraight());
     }
 
+    @Test
+    void testHasFlush() {
+        Card[] cards = new Card[]{
+                new Card(Suit.HEARTS, Value.DEDUCE),
+                new Card(Suit.HEARTS, Value.TEN),
+                new Card(Suit.HEARTS, Value.THREE),
+                new Card(Suit.HEARTS, Value.SIX),
+                new Card(Suit.HEARTS, Value.FOUR)
+        };
+        cardBlack = Arrays.asList(cards);
+        Hand handBlack = new Hand(cardBlack);
+
+        assertEquals(Value.TEN, handBlack.getFlush().get(0));
+        assertEquals(Value.SIX, handBlack.getFlush().get(1));
+        assertEquals(Value.FOUR, handBlack.getFlush().get(2));
+        assertEquals(Value.THREE, handBlack.getFlush().get(3));
+        assertEquals(Value.DEDUCE, handBlack.getFlush().get(4));
+    }
+
 }
