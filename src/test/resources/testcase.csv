@@ -15,4 +15,7 @@ AH AC AS 8D 8H, 7C 7D 7H TS 9C, 1, Black win. - with full house: A
 9H TH QH 8C JH, 9C TC JD KC QC, -1, White win. - with straight: K
 9C TC JD KC QC, 9H TH QH 8C JH, -1, Black win. - with straight: K
 9H TH QH KC JH, 9C TC JD KC QC, -1, Tie.
+2H 2C 2S 3D 4H, 6C 6D 6H TS 3C, -1, White win. - with three of a kind: 6
+AH AC AS QD 8H, 7C 7D 7H 5S 8C, 1, Black win. - with three of a kind: A
+KH KC AS KD 8H, 9C 7D 7H 7S 8C, 1, Black win. - with three of a kind: K
 

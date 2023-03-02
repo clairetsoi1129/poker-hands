@@ -164,7 +164,8 @@ public class Hand implements Comparable<Hand>{
         int result = this.getRank().compareTo(otherHand.getRank());
         if (result==0){
             if (this.getRank()==Rank.StraightFlush || this.getRank()==Rank.FourOfAKind
-            || this.getRank()==Rank.FullHouse || this.getRank() == Rank.Straight){
+            || this.getRank()==Rank.FullHouse || this.getRank() == Rank.Straight
+            || this.getRank()==Rank.ThreeOfAKind){
                 //compare highest
                 result = compareTo(this.getRank(), this.getValueToCompare(), otherHand.getValueToCompare());
             }else if (this.getRank()==Rank.Flush){
