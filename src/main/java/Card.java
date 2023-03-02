@@ -7,6 +7,11 @@ public class Card implements Comparable<Card>{
         this.value = value;
     }
 
+    public Card(String valueSuit) {
+        this.suit = Suit.getSuitForSymbol(valueSuit.charAt(1));
+        this.value = Value.getValueForSymbol(valueSuit.charAt(0));
+    }
+
     public Suit getSuit() {
         return suit;
     }

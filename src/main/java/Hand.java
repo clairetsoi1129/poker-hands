@@ -6,7 +6,7 @@ public class Hand implements Comparable<Hand>{
     private HashMap<Value,Integer> cardValueMap;
     private HashMap<Suit,Integer> cardSuitMap;
 
-    private final List<Value> pairs;
+    private List<Value> pairs;
     private Value threeOfAKind;
 
     private Value fourOfAKind;
@@ -23,7 +23,19 @@ public class Hand implements Comparable<Hand>{
 
     public Hand(List<Card> cards) {
         this.cards = cards;
+        evaluate();
+    }
 
+    public Hand(String playerCards) {
+        String[] playerCardsArr = playerCards.split(" ");
+        this.cards = new ArrayList<>();
+        for (String s : playerCardsArr) {
+            this.cards.add(new Card(s));
+        }
+        evaluate();
+    }
+
+    public void evaluate(){
         cardValueMap = new LinkedHashMap<>();
         for (Card card : cards) {
             cardValueMap.merge(card.getValue(), 1, Integer::sum);
@@ -74,7 +86,10 @@ public class Hand implements Comparable<Hand>{
         if (straight != null && flush.size() > 0){
             straightFlush = straight;
         }
+
     }
+
+
 
     public List<Card> sort(){
         return cards.stream()

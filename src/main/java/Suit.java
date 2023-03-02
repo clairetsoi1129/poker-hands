@@ -15,4 +15,12 @@ public enum Suit {
     {
         return this.symbol;
     }
+
+    public static Suit getSuitForSymbol(final char symbol)
+    {
+        for (Suit suit : Suit.values())
+            if (suit.symbol == symbol)
+                return suit;
+        return null;
+    }
 }

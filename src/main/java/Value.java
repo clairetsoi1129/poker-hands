@@ -46,4 +46,12 @@ public enum Value {
     public String toString(){
         return String.valueOf(getSymbol());
     }
+
+    public static Value getValueForSymbol(final char symbol)
+    {
+        for (Value value : Value.values())
+            if (value.symbol == symbol)
+                return value;
+        return null;
+    }
 }

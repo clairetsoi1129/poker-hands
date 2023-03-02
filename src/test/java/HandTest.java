@@ -1,4 +1,6 @@
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 
 import java.util.*;
 
@@ -162,7 +164,18 @@ public class HandTest {
         cardWhite = Arrays.asList(cardsWhite);
         Hand handWhite = new Hand(cardWhite);
 
-        assertTrue(handBlack.compareTo(handWhite) < 0);
+        assertEquals(-1, handBlack.compareTo(handWhite));
         assertEquals("with straight flush value 7", handBlack.getReason());
+    }
+
+    @ParameterizedTest
+    @CsvFileSource(resources = "/testcase.csv", numLinesToSkip = 1)
+    void testCompare2HandsValidCase(
+            String player1CardsStr, String player2CardsStr, int expectedValue, String expectedReason) {
+
+        Hand handBlack = new Hand(player1CardsStr);
+        Hand handWhite = new Hand(player2CardsStr);
+        assertEquals(expectedValue, handBlack.compareTo(handWhite));
+        assertEquals(expectedReason, handBlack.getReason());
     }
 }

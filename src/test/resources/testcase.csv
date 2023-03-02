@@ -1,0 +1,3 @@
+Input Player Black, Input Player White, Who Win, Reason
+2H 5S 3H 6H 4H, 6C 5C 3C 4C 2C, -1, with straight flush value 6
+6C 5C 3C 4C 2C, 2H 5S 3H 6H 4H, 1, with straight flush value 6
