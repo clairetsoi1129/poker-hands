@@ -42,4 +42,8 @@ public enum Value {
         }
         return values[(ordinal - 1) % values.length];
     }
+
+    public String toString(){
+        return String.valueOf(getSymbol());
+    }
 }

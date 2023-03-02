@@ -3,9 +3,11 @@ import org.junit.jupiter.api.Test;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HandTest {
     private List<Card> cardBlack;
+    private List<Card> cardWhite;
 
     @Test
     void testFindPair() {
@@ -138,4 +140,29 @@ public class HandTest {
         assertEquals(Value.SIX, handBlack.getStraightFlush());
     }
 
+    @Test
+    void testCompare2HandsStraightFlush() {
+        Card[] cardsBlack = new Card[]{
+                new Card(Suit.HEARTS, Value.DEDUCE),
+                new Card(Suit.SPADES, Value.FIVE),
+                new Card(Suit.HEARTS, Value.THREE),
+                new Card(Suit.HEARTS, Value.SIX),
+                new Card(Suit.HEARTS, Value.FOUR)
+        };
+        cardBlack = Arrays.asList(cardsBlack);
+        Hand handBlack = new Hand(cardBlack);
+
+        Card[] cardsWhite = new Card[]{
+                new Card(Suit.CLUBS, Value.SEVEN),
+                new Card(Suit.CLUBS, Value.FIVE),
+                new Card(Suit.CLUBS, Value.THREE),
+                new Card(Suit.CLUBS, Value.SIX),
+                new Card(Suit.CLUBS, Value.FOUR)
+        };
+        cardWhite = Arrays.asList(cardsWhite);
+        Hand handWhite = new Hand(cardWhite);
+
+        assertTrue(handBlack.compareTo(handWhite) < 0);
+        assertEquals("with straight flush value 7", handBlack.getReason());
+    }
 }

@@ -19,6 +19,8 @@ public class Hand implements Comparable<Hand>{
 
     private Value straightFlush;
 
+    private String reason;
+
     public Hand(List<Card> cards) {
         this.cards = cards;
 
@@ -86,7 +88,29 @@ public class Hand implements Comparable<Hand>{
 
     @Override
     public int compareTo(Hand otherHand) {
-        return 0;
+        int result = 0;
+        if (this.getStraightFlush() != null && otherHand.getStraightFlush() == null) {
+            result = 1;
+            reason = "with straight flush value " + this.getStraightFlush();
+        }else if (this.getStraightFlush() != null && otherHand.getStraightFlush() != null){
+            if (this.getStraightFlush().compareTo(otherHand.getStraightFlush()) > 0){
+                result = 1;
+                reason = "straight flush value " + this.getStraightFlush()+ " > straight flush value " + otherHand.getStraightFlush();
+            }else if (this.getStraightFlush().compareTo(otherHand.getStraightFlush()) == 0){
+                result = 0;
+                reason = "straight flush value " + this.getStraightFlush()+ " = straight flush value " + otherHand.getStraightFlush();
+            }else {
+                result = -1;
+                reason = "straight flush value " + otherHand.getStraightFlush()+ " = straight flush value " + this.getStraightFlush();
+            }
+        }else if (this.getStraightFlush() == null && otherHand.getStraightFlush() != null){
+            result = -1;
+            reason = "with straight flush value " + otherHand.getStraightFlush();
+        }else {
+
+        }
+
+        return result;
     }
 
     public List<Value> getPairs(){
@@ -115,5 +139,9 @@ public class Hand implements Comparable<Hand>{
 
     public Value getStraightFlush() {
         return straightFlush;
+    }
+
+    public String getReason() {
+        return reason;
     }
 }
