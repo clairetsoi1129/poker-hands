@@ -8,3 +8,11 @@ AH AC AS AD 8H, 9C 7D 7H 7S 8C, 1, Black win. - with four of a kind: A
 2H 2C 2S 4D 4H, 6C 6D 6H 3S 3C, -1, White win. - with full house: 6
 AH AC AS 8D 8H, 7C 7D 7H 9S 9C, 1, Black win. - with full house: A
 AH AC AS 8D 8H, 7C 7D 7H TS 9C, 1, Black win. - with full house: A
+2H 4H 6H 8H JH, 6C KC 8C 5C 3C, -1, White win. - with flush: K
+2H 4H 6H 9H KH, 6C KC 8C 5C 3C, -1, Black win. - with flush: 9
+5H 4H 6H KH 8H, 6C KC 8C 5C 3C, -1, Black win. - with flush: 4
+5H 3H 6H KH 8H, 6C KC 8C 5C 3C, -1, Tie.
+9H TH QH 8C JH, 9C TC JD KC QC, -1, White win. - with straight: K
+9C TC JD KC QC, 9H TH QH 8C JH, -1, Black win. - with straight: K
+9H TH QH KC JH, 9C TC JD KC QC, -1, Tie.
+

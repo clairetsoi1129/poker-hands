@@ -137,14 +137,39 @@ public class Hand implements Comparable<Hand>{
         return result;
     }
 
+    public int compareTo(Rank rank, List<Value> blackValues, List<Value> whiteValues){
+        int result = 0;
+        for (int i=0; i<blackValues.size(); i++){
+            result = blackValues.get(i).compareTo(whiteValues.get(i));
+            if (result != 0){
+                if (result > 0){
+                    reason = MessageFormat.format("Black win. - with {0}: {1}",
+                            rank.getName(), blackValues.get(i));
+                }else {
+                    reason = MessageFormat.format("White win. - with {0}: {1}",
+                            rank.getName(), whiteValues.get(i));
+                }
+                break;
+            }
+        }
+        if (result == 0){
+            reason = "Tie.";
+        }
+
+        return result;
+    }
+
     @Override
     public int compareTo(Hand otherHand) {
         int result = this.getRank().compareTo(otherHand.getRank());
         if (result==0){
             if (this.getRank()==Rank.StraightFlush || this.getRank()==Rank.FourOfAKind
-            || this.getRank()==Rank.FullHouse){
+            || this.getRank()==Rank.FullHouse || this.getRank() == Rank.Straight){
                 //compare highest
                 result = compareTo(this.getRank(), this.getValueToCompare(), otherHand.getValueToCompare());
+            }else if (this.getRank()==Rank.Flush){
+                result = compareTo(this.getRank(), this.getFlush(), otherHand.getFlush());
+
             }
         }else if (result>0) {
             reason = MessageFormat.format("Black win. - with {0}: {1}",
