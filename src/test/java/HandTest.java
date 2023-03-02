@@ -92,4 +92,19 @@ public class HandTest {
         assertEquals(Value.DEDUCE, handBlack.getFlush().get(4));
     }
 
+    @Test
+    void testHasFullHouse() {
+        Card[] cards = new Card[]{
+                new Card(Suit.HEARTS, Value.THREE),
+                new Card(Suit.SPADES, Value.THREE),
+                new Card(Suit.CLUBS, Value.THREE),
+                new Card(Suit.HEARTS, Value.SIX),
+                new Card(Suit.CLUBS, Value.SIX)
+        };
+        cardBlack = Arrays.asList(cards);
+        Hand handBlack = new Hand(cardBlack);
+
+        assertEquals(Value.THREE, handBlack.getFullHouse());
+    }
+
 }

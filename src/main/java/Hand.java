@@ -13,6 +13,8 @@ public class Hand implements Comparable<Hand>{
 
     private List<Value> flush;
 
+    private Value fullHouse;
+
     public Hand(List<Card> cards) {
         this.cards = cards;
 
@@ -29,6 +31,11 @@ public class Hand implements Comparable<Hand>{
             }else if (cardValueMap.get(key) == 3){
                 threeOfAKind = key;
             }
+        }
+
+
+        if (threeOfAKind != null && pairs.size() == 1){
+            fullHouse = threeOfAKind;
         }
 
         // Check Straight
@@ -89,5 +96,9 @@ public class Hand implements Comparable<Hand>{
 
     public List<Value> getFlush() {
         return flush;
+    }
+
+    public Value getFullHouse() {
+        return fullHouse;
     }
 }
