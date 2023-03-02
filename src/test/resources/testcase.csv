@@ -1,3 +1,6 @@
 Input Player Black, Input Player White, Who Win, Reason
-2H 5S 3H 6H 4H, 6C 5C 3C 4C 2C, -1, with straight flush value 6
-6C 5C 3C 4C 2C, 2H 5S 3H 6H 4H, 1, with straight flush value 6
+2H 5S 3H 6H 4H, 6C 5C 3C 4C 2C, -1, White win. - with straight flush: 6
+6C 5C 3C 4C 2C, 2H 5S 3H 6H 4H, 1, Black win. - with straight flush: 6
+6C 5C 3C 4C 2C, 6H 5H 3H 4H 2H, 0, Tie.
+2H 2C 2S 2D 4H, 6C 6D 6H 6S 3C, -1, White win. - with four of a kind: 6
+AH AC AS AD 8H, 7C 7D 7H 7S 8C, 1, Black win. - with four of a kind: A

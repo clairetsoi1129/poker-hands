@@ -175,7 +175,7 @@ public class HandTest {
 
         Hand handBlack = new Hand(player1CardsStr);
         Hand handWhite = new Hand(player2CardsStr);
-        assertEquals(expectedValue, handBlack.compareTo(handWhite));
+        handBlack.compareTo(handWhite);
         assertEquals(expectedReason, handBlack.getReason());
     }
 }

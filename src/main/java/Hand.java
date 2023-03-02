@@ -1,3 +1,4 @@
+import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -21,9 +22,13 @@ public class Hand implements Comparable<Hand>{
 
     private String reason;
 
+    private Rank rank;
+
+    private Value valueToCompare;
+
     public Hand(List<Card> cards) {
         this.cards = cards;
-        evaluate();
+        evaluateRank();
     }
 
     public Hand(String playerCards) {
@@ -32,30 +37,41 @@ public class Hand implements Comparable<Hand>{
         for (String s : playerCardsArr) {
             this.cards.add(new Card(s));
         }
-        evaluate();
+        evaluateRank();
     }
 
-    public void evaluate(){
+    public void evaluateRank(){
+        rank = Rank.HighCard; //default is high card
+
+        // Check pairs /  3 of a kind
         cardValueMap = new LinkedHashMap<>();
         for (Card card : cards) {
             cardValueMap.merge(card.getValue(), 1, Integer::sum);
         }
-
-        // Check pairs /  3 of a kind
         pairs = new ArrayList<>();
         for (Value key: cardValueMap.keySet()){
             if (cardValueMap.get(key) == 2){
                 pairs.add(key);
             }else if (cardValueMap.get(key) == 3){
-                threeOfAKind = key;
+//                threeOfAKind = key;
+                rank = Rank.ThreeOfAKind;
+                valueToCompare = key;
             }else if (cardValueMap.get(key) == 4){
-                fourOfAKind = key;
+//                fourOfAKind = key;
+                rank = Rank.FourOfAKind;
+                valueToCompare = key;
             }
         }
+        if (pairs.size() == 2)
+            rank = Rank.TwoPairs;
+        else if (pairs.size() == 1)
+            rank = Rank.Pair;
 
 
         if (threeOfAKind != null && pairs.size() == 1){
-            fullHouse = threeOfAKind;
+//            fullHouse = threeOfAKind;
+            rank = Rank.FullHouse;
+            valueToCompare = threeOfAKind;
         }
 
         // Check Straight
@@ -67,7 +83,10 @@ public class Hand implements Comparable<Hand>{
                 break;
             }
         }
-
+        if (straight != null) {
+            rank = Rank.Straight;
+            valueToCompare = straight;
+        }
 
         // Check Flush
         cardSuitMap = new LinkedHashMap<>();
@@ -80,13 +99,16 @@ public class Hand implements Comparable<Hand>{
                 for (Card card : sortedCards) {
                     flush.add(card.getValue());
                 }
+                rank = Rank.Flush;
+                valueToCompare = flush.get(0);
             }
         }
 
         if (straight != null && flush.size() > 0){
             straightFlush = straight;
+            rank = Rank.StraightFlush;
+            valueToCompare = flush.get(0);
         }
-
     }
 
 
@@ -101,32 +123,38 @@ public class Hand implements Comparable<Hand>{
         return cards;
     }
 
-    @Override
-    public int compareTo(Hand otherHand) {
-        int result = 0;
-        if (this.getStraightFlush() != null && otherHand.getStraightFlush() == null) {
-            result = 1;
-            reason = "with straight flush value " + this.getStraightFlush();
-        }else if (this.getStraightFlush() != null && otherHand.getStraightFlush() != null){
-            if (this.getStraightFlush().compareTo(otherHand.getStraightFlush()) > 0){
-                result = 1;
-                reason = "straight flush value " + this.getStraightFlush()+ " > straight flush value " + otherHand.getStraightFlush();
-            }else if (this.getStraightFlush().compareTo(otherHand.getStraightFlush()) == 0){
-                result = 0;
-                reason = "straight flush value " + this.getStraightFlush()+ " = straight flush value " + otherHand.getStraightFlush();
-            }else {
-                result = -1;
-                reason = "straight flush value " + otherHand.getStraightFlush()+ " = straight flush value " + this.getStraightFlush();
-            }
-        }else if (this.getStraightFlush() == null && otherHand.getStraightFlush() != null){
-            result = -1;
-            reason = "with straight flush value " + otherHand.getStraightFlush();
+    public int compareTo(Rank rank, Value blackValue, Value whiteValue){
+        int result = blackValue.compareTo(whiteValue);
+        if (result == 0){
+            reason = "Tie.";
+        }else if (result > 0){
+            reason = MessageFormat.format("Black win. - with {0}: {1}",
+                    rank.getName(), blackValue);
         }else {
-
+            reason = MessageFormat.format("White win. - with {0}: {1}",
+                    rank.getName(), whiteValue);
         }
-
         return result;
     }
+
+    @Override
+    public int compareTo(Hand otherHand) {
+        int result = this.getRank().compareTo(otherHand.getRank());
+        if (result==0){
+            if (this.getRank()==Rank.StraightFlush || this.getRank()==Rank.FourOfAKind){
+                //compare highest
+                result = compareTo(this.getRank(), this.getValueToCompare(), otherHand.getValueToCompare());
+            }
+        }else if (result>0) {
+            reason = MessageFormat.format("Black win. - with {0}: {1}",
+                    this.getRank().getName(), this.getValueToCompare());
+        }else {
+            reason = MessageFormat.format("White win. - with {0}: {1}",
+                    otherHand.getRank().getName(), otherHand.getValueToCompare());
+        }
+        return result;
+    }
+
 
     public List<Value> getPairs(){
         return pairs;
@@ -158,5 +186,13 @@ public class Hand implements Comparable<Hand>{
 
     public String getReason() {
         return reason;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public Value getValueToCompare() {
+        return valueToCompare;
     }
 }
