@@ -42,4 +42,20 @@ public class HandTest {
         assertEquals(Value.THREE, pairs.get(1));
     }
 
+    @Test
+    void testFindThreeOfAKinds() {
+        Card[] cards = new Card[]{
+                new Card(Suit.HEARTS, Value.FOUR),
+                new Card(Suit.DIAMONDS, Value.FOUR),
+                new Card(Suit.CLUBS, Value.THREE),
+                new Card(Suit.SPADES, Value.TEN),
+                new Card(Suit.CLUBS, Value.FOUR)
+        };
+        cardBlack = Arrays.asList(cards);
+        Hand handBlack = new Hand(cardBlack);
+        Value threeOfAKind = handBlack.getThreeOfAKind();
+
+        assertEquals(Value.FOUR, threeOfAKind);
+    }
+
 }

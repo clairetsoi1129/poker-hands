@@ -5,6 +5,7 @@ public class Hand implements Comparable<Hand>{
     private HashMap<Value,Integer> cardMap;
 
     private final List<Value> pairs;
+    private Value threeOfAKind;
 
     public Hand(List<Card> cards) {
         this.cards = cards;
@@ -18,6 +19,8 @@ public class Hand implements Comparable<Hand>{
         for (Value key:cardMap.keySet()){
             if (cardMap.get(key) == 2){
                 pairs.add(key);
+            }else if (cardMap.get(key) == 3){
+                threeOfAKind = key;
             }
         }
     }
@@ -33,5 +36,9 @@ public class Hand implements Comparable<Hand>{
 
     public List<Value> getPairs(){
         return pairs;
+    }
+
+    public Value getThreeOfAKind() {
+        return threeOfAKind;
     }
 }
