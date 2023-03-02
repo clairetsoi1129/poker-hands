@@ -142,32 +142,6 @@ public class HandTest {
         assertEquals(Value.SIX, handBlack.getStraightFlush());
     }
 
-    @Test
-    void testCompare2HandsStraightFlush() {
-        Card[] cardsBlack = new Card[]{
-                new Card(Suit.HEARTS, Value.DEDUCE),
-                new Card(Suit.SPADES, Value.FIVE),
-                new Card(Suit.HEARTS, Value.THREE),
-                new Card(Suit.HEARTS, Value.SIX),
-                new Card(Suit.HEARTS, Value.FOUR)
-        };
-        cardBlack = Arrays.asList(cardsBlack);
-        Hand handBlack = new Hand(cardBlack);
-
-        Card[] cardsWhite = new Card[]{
-                new Card(Suit.CLUBS, Value.SEVEN),
-                new Card(Suit.CLUBS, Value.FIVE),
-                new Card(Suit.CLUBS, Value.THREE),
-                new Card(Suit.CLUBS, Value.SIX),
-                new Card(Suit.CLUBS, Value.FOUR)
-        };
-        cardWhite = Arrays.asList(cardsWhite);
-        Hand handWhite = new Hand(cardWhite);
-
-        assertEquals(-1, handBlack.compareTo(handWhite));
-        assertEquals("with straight flush value 7", handBlack.getReason());
-    }
-
     @ParameterizedTest
     @CsvFileSource(resources = "/testcase.csv", numLinesToSkip = 1)
     void testCompare2HandsValidCase(

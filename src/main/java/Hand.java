@@ -53,11 +53,11 @@ public class Hand implements Comparable<Hand>{
             if (cardValueMap.get(key) == 2){
                 pairs.add(key);
             }else if (cardValueMap.get(key) == 3){
-//                threeOfAKind = key;
+                threeOfAKind = key;
                 rank = Rank.ThreeOfAKind;
                 valueToCompare = key;
             }else if (cardValueMap.get(key) == 4){
-//                fourOfAKind = key;
+                fourOfAKind = key;
                 rank = Rank.FourOfAKind;
                 valueToCompare = key;
             }
@@ -69,7 +69,7 @@ public class Hand implements Comparable<Hand>{
 
 
         if (threeOfAKind != null && pairs.size() == 1){
-//            fullHouse = threeOfAKind;
+            fullHouse = threeOfAKind;
             rank = Rank.FullHouse;
             valueToCompare = threeOfAKind;
         }
@@ -141,7 +141,8 @@ public class Hand implements Comparable<Hand>{
     public int compareTo(Hand otherHand) {
         int result = this.getRank().compareTo(otherHand.getRank());
         if (result==0){
-            if (this.getRank()==Rank.StraightFlush || this.getRank()==Rank.FourOfAKind){
+            if (this.getRank()==Rank.StraightFlush || this.getRank()==Rank.FourOfAKind
+            || this.getRank()==Rank.FullHouse){
                 //compare highest
                 result = compareTo(this.getRank(), this.getValueToCompare(), otherHand.getValueToCompare());
             }

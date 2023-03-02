@@ -4,3 +4,7 @@ Input Player Black, Input Player White, Who Win, Reason
 6C 5C 3C 4C 2C, 6H 5H 3H 4H 2H, 0, Tie.
 2H 2C 2S 2D 4H, 6C 6D 6H 6S 3C, -1, White win. - with four of a kind: 6
 AH AC AS AD 8H, 7C 7D 7H 7S 8C, 1, Black win. - with four of a kind: A
+AH AC AS AD 8H, 9C 7D 7H 7S 8C, 1, Black win. - with four of a kind: A
+2H 2C 2S 4D 4H, 6C 6D 6H 3S 3C, -1, White win. - with full house: 6
+AH AC AS 8D 8H, 7C 7D 7H 9S 9C, 1, Black win. - with full house: A
+AH AC AS 8D 8H, 7C 7D 7H TS 9C, 1, Black win. - with full house: A
