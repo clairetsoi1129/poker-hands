@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hand implements Comparable<Hand>{
     private final List<Card> cards;
@@ -6,6 +7,8 @@ public class Hand implements Comparable<Hand>{
 
     private final List<Value> pairs;
     private Value threeOfAKind;
+
+    private Value straight;
 
     public Hand(List<Card> cards) {
         this.cards = cards;
@@ -23,6 +26,21 @@ public class Hand implements Comparable<Hand>{
                 threeOfAKind = key;
             }
         }
+
+        List<Card> sortedCards = this.sort();
+        straight = sortedCards.get(0).getValue();
+        for (int i=0; i<sortedCards.size()-1; i++) {
+            if (sortedCards.get(i + 1).getValue() != sortedCards.get(i).getValue().prev()) {
+                straight = null;
+                break;
+            }
+        }
+    }
+
+    public List<Card> sort(){
+        return cards.stream()
+                .sorted(Comparator.reverseOrder())
+                .collect(Collectors.toList());
     }
 
     public List<Card> getCards() {
@@ -40,5 +58,9 @@ public class Hand implements Comparable<Hand>{
 
     public Value getThreeOfAKind() {
         return threeOfAKind;
+    }
+
+    public Value getStraight() {
+        return straight;
     }
 }

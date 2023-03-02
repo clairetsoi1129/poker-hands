@@ -58,4 +58,19 @@ public class HandTest {
         assertEquals(Value.FOUR, threeOfAKind);
     }
 
+    @Test
+    void testHasStraight() {
+        Card[] cards = new Card[]{
+                new Card(Suit.HEARTS, Value.DEDUCE),
+                new Card(Suit.DIAMONDS, Value.FIVE),
+                new Card(Suit.CLUBS, Value.THREE),
+                new Card(Suit.SPADES, Value.SIX),
+                new Card(Suit.CLUBS, Value.FOUR)
+        };
+        cardBlack = Arrays.asList(cards);
+        Hand handBlack = new Hand(cardBlack);
+
+        assertEquals(Value.SIX, handBlack.getStraight());
+    }
+
 }
