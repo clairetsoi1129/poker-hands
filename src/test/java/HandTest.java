@@ -107,4 +107,20 @@ public class HandTest {
         assertEquals(Value.THREE, handBlack.getFullHouse());
     }
 
+    @Test
+    void testFindFourOfAKinds() {
+        Card[] cards = new Card[]{
+                new Card(Suit.HEARTS, Value.FOUR),
+                new Card(Suit.DIAMONDS, Value.FOUR),
+                new Card(Suit.CLUBS, Value.TEN),
+                new Card(Suit.SPADES, Value.FOUR),
+                new Card(Suit.CLUBS, Value.FOUR)
+        };
+        cardBlack = Arrays.asList(cards);
+        Hand handBlack = new Hand(cardBlack);
+        Value fourOfAKind = handBlack.getFourOfAKind();
+
+        assertEquals(Value.FOUR, fourOfAKind);
+    }
+
 }

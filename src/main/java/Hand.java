@@ -9,6 +9,8 @@ public class Hand implements Comparable<Hand>{
     private final List<Value> pairs;
     private Value threeOfAKind;
 
+    private Value fourOfAKind;
+
     private Value straight;
 
     private List<Value> flush;
@@ -30,6 +32,8 @@ public class Hand implements Comparable<Hand>{
                 pairs.add(key);
             }else if (cardValueMap.get(key) == 3){
                 threeOfAKind = key;
+            }else if (cardValueMap.get(key) == 4){
+                fourOfAKind = key;
             }
         }
 
@@ -100,5 +104,9 @@ public class Hand implements Comparable<Hand>{
 
     public Value getFullHouse() {
         return fullHouse;
+    }
+
+    public Value getFourOfAKind() {
+        return fourOfAKind;
     }
 }
