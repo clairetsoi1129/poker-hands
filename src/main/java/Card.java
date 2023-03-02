@@ -7,6 +7,14 @@ public class Card implements Comparable<Card>{
         this.value = value;
     }
 
+    public Suit getSuit() {
+        return suit;
+    }
+
+    public Value getValue() {
+        return value;
+    }
+
     @Override
     public int compareTo(Card card) {
         return this.value.compareTo(card.value);
