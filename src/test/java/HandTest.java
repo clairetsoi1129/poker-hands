@@ -123,4 +123,19 @@ public class HandTest {
         assertEquals(Value.FOUR, fourOfAKind);
     }
 
+    @Test
+    void testHasStraightFlush() {
+        Card[] cards = new Card[]{
+                new Card(Suit.HEARTS, Value.DEDUCE),
+                new Card(Suit.HEARTS, Value.FIVE),
+                new Card(Suit.HEARTS, Value.THREE),
+                new Card(Suit.HEARTS, Value.SIX),
+                new Card(Suit.HEARTS, Value.FOUR)
+        };
+        cardBlack = Arrays.asList(cards);
+        Hand handBlack = new Hand(cardBlack);
+
+        assertEquals(Value.SIX, handBlack.getStraightFlush());
+    }
+
 }

@@ -17,6 +17,8 @@ public class Hand implements Comparable<Hand>{
 
     private Value fullHouse;
 
+    private Value straightFlush;
+
     public Hand(List<Card> cards) {
         this.cards = cards;
 
@@ -67,8 +69,9 @@ public class Hand implements Comparable<Hand>{
             }
         }
 
-
-
+        if (straight != null && flush.size() > 0){
+            straightFlush = straight;
+        }
     }
 
     public List<Card> sort(){
@@ -108,5 +111,9 @@ public class Hand implements Comparable<Hand>{
 
     public Value getFourOfAKind() {
         return fourOfAKind;
+    }
+
+    public Value getStraightFlush() {
+        return straightFlush;
     }
 }
