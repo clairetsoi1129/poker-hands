@@ -143,7 +143,7 @@ public class HandTest {
     @ParameterizedTest
     @CsvFileSource(resources = "/testcase.csv", numLinesToSkip = 1)
     void testCompare2HandsValidCase(
-            String player1CardsStr, String player2CardsStr, int expectedValue, String expectedReason) {
+            String player1CardsStr, String player2CardsStr, String expectedReason) {
 
         Hand handBlack = new Hand(player1CardsStr);
         Hand handWhite = new Hand(player2CardsStr);

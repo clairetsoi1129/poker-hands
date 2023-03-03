@@ -1,13 +1,10 @@
-import java.text.MessageFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Hand implements Comparable<Hand>{
     private final List<Card> cards;
     private HashMap<Value,Long> sortedGroupByValueMap;
-    private final String BLACK_WIN = "Black win. - with {0}: {1}";
-    private final String WHITE_WIN = "White win. - with {0}: {1}";
-    private final String TIE = "Tie.";
+
     private String reason;
     private Rank rank;
 
@@ -118,17 +115,18 @@ public class Hand implements Comparable<Hand>{
         int result = 0;
         for (int i=0; i<blackValues.size(); i++){
             result = blackValues.get(i).compareTo(whiteValues.get(i));
+
             if (result != 0){
                 if (result > 0){
-                    reason = MessageFormat.format(BLACK_WIN, rank.getName(), blackValues.get(i));
+                    formatReason(result, rank, blackValues, i);
                 }else {
-                    reason = MessageFormat.format(WHITE_WIN, rank.getName(), whiteValues.get(i));
+                    formatReason(result, rank, whiteValues, i);
                 }
                 break;
             }
         }
         if (result == 0){
-            reason = TIE;
+            formatReason(result, rank, blackValues, 0);
         }
 
         return result;
@@ -141,13 +139,54 @@ public class Hand implements Comparable<Hand>{
             result = compareTo(this.getRank(), this.getValuesToCompare(),
                     otherHand.getValuesToCompare());
         }else if (result>0) {
-            reason = MessageFormat.format(BLACK_WIN,
-                    this.getRank().getName(), this.getValuesToCompare().get(0));
+            formatReason(result, rank, this.getValuesToCompare(), 0);
         }else {
-            reason = MessageFormat.format(WHITE_WIN,
-                    otherHand.getRank().getName(), otherHand.getValuesToCompare().get(0));
+            formatReason(result, rank, otherHand.getValuesToCompare(), 0);
         }
         return result;
+    }
+
+    public void formatReason(int compareResult, Rank rank, List<Value> values, int idx){
+       if (idx == 0){
+            if (rank == Rank.FullHouse) {
+                reason = new FullHouseMessageFormatter(compareResult,
+                        this.getRank(), values).format();
+            }else if (rank == Rank.Flush) {
+                reason = new FlushMessageFormatter(compareResult,
+                        this.getRank(), values, idx).format();
+            }else {
+                reason = new MessageFormatter(compareResult,
+                        this.getRank(),  values, idx).format();
+            }
+        }else if (idx == 1) {
+            if (rank == Rank.Flush) {
+                reason = new FlushMessageFormatter(compareResult,
+                        this.getRank(), values, idx).format();
+            } else if (rank == Rank.Pair) {
+                reason = new PairMessageFormatter(compareResult,
+                        this.getRank(), values, idx).format();
+            } else if (rank == Rank.TwoPairs) {
+                reason = new TwoPairsMessageFormatter(compareResult,
+                        this.getRank(), values, idx).format();
+            } else {
+                reason = new MessageFormatter(compareResult,
+                        this.getRank(),  values, idx).format();
+            }
+        }else {
+           if (rank == Rank.Flush) {
+               reason = new FlushMessageFormatter(compareResult,
+                       this.getRank(), values, idx).format();
+           } else if (rank == Rank.Pair) {
+               reason = new PairMessageFormatter(compareResult,
+                       this.getRank(), values, idx).format();
+           } else if (rank == Rank.TwoPairs) {
+               reason = new TwoPairsMessageFormatter(compareResult,
+                       this.getRank(), values, idx).format();
+           } else {
+               reason = new MessageFormatter(compareResult,
+                       this.getRank(), values, idx).format();
+           }
+       }
     }
 
     public String getReason() {
