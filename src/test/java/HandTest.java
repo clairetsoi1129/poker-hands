@@ -22,7 +22,7 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Rank.Pair, handBlack.getRank());
+        assertEquals(Rank.Pair, handBlack.getHighCard().getRank());
         assertEquals(Value.ACE, handBlack.getValuesToCompare().get(0));
     }
 
@@ -38,7 +38,7 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Rank.TwoPairs, handBlack.getRank());
+        assertEquals(Rank.TwoPairs, handBlack.getHighCard().getRank());
         assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(0));
         assertEquals(Value.THREE, handBlack.getValuesToCompare().get(1));
     }
@@ -55,7 +55,7 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Rank.ThreeOfAKind, handBlack.getRank());
+        assertEquals(Rank.ThreeOfAKind, handBlack.getHighCard().getRank());
         assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(0));
     }
 
@@ -70,7 +70,7 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-        assertEquals(Rank.Straight, handBlack.getRank());
+        assertEquals(Rank.Straight, handBlack.getHighCard().getRank());
         assertEquals(Value.SIX, handBlack.getValuesToCompare().get(0));
     }
 
@@ -85,7 +85,7 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-        assertEquals(Rank.Flush, handBlack.getRank());
+        assertEquals(Rank.Flush, handBlack.getHighCard().getRank());
         assertEquals(Value.TEN, handBlack.getValuesToCompare().get(0));
         assertEquals(Value.SIX, handBlack.getValuesToCompare().get(1));
         assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(2));
@@ -105,7 +105,7 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Rank.FullHouse, handBlack.getRank());
+        assertEquals(Rank.FullHouse, handBlack.getHighCard().getRank());
         assertEquals(Value.THREE, handBlack.getValuesToCompare().get(0));
     }
 
@@ -121,7 +121,7 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Rank.FourOfAKind, handBlack.getRank());
+        assertEquals(Rank.FourOfAKind, handBlack.getHighCard().getRank());
         assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(0));
     }
 
@@ -137,7 +137,7 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Rank.StraightFlush, handBlack.getRank());
+        assertEquals(Rank.StraightFlush, handBlack.getHighCard().getRank());
         assertEquals(Value.SIX, handBlack.getValuesToCompare().get(0));
     }
 
