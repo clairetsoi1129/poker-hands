@@ -5,13 +5,11 @@ import util.*;
 import java.util.*;
 
 public class HighCard implements Comparable<HighCard>{
-    protected final List<Card> cards;
     protected Rank rank;
     protected List<Value> valuesToCompare;
     protected String reason;
 
-    public HighCard(List<Card> cards, List<Value> valuesToCompare) {
-        this.cards = cards;
+    public HighCard(List<Value> valuesToCompare) {
         this.valuesToCompare = valuesToCompare;
         this.rank = Rank.HighCard;
     }

@@ -3,8 +3,8 @@ package model;
 import java.util.List;
 
 public class FourOfAKind extends HighCard{
-    public FourOfAKind(List<Card> cards, List<Value> valuesToCompare) {
-        super(cards, valuesToCompare);
+    public FourOfAKind(List<Value> valuesToCompare) {
+        super(valuesToCompare);
         rank = Rank.FourOfAKind;
     }
 }

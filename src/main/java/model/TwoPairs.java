@@ -5,8 +5,8 @@ import util.TwoPairsMessageFormatter;
 import java.util.List;
 
 public class TwoPairs extends HighCard{
-    public TwoPairs(List<Card> cards, List<Value> valuesToCompare) {
-        super(cards, valuesToCompare);
+    public TwoPairs(List<Value> valuesToCompare) {
+        super(valuesToCompare);
         rank = Rank.TwoPairs;
     }
 

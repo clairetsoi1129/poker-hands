@@ -1,14 +1,14 @@
 package model;
 
+import criteria.*;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
 public class Hand implements Comparable<Hand> {
     private final List<Card> cards;
     private HashMap<Value, Long> sortedGroupByValueMap;
-    private Map<Suit, Long> groupBySuitMap;
     private List<Value> valuesToCompare;
-
     private HighCard highCard;
 
     public Hand(List<Card> cards) {
@@ -44,86 +44,34 @@ public class Hand implements Comparable<Hand> {
         System.out.println("sortedGroupByValueMap:" + sortedGroupByValueMap);
     }
 
-    private boolean isSingleSuit() {
-        if (groupBySuitMap == null) {
-            groupBySuitMap =
-                    cards.stream().collect(
-                            Collectors.groupingBy(
-                                    Card::getSuit, Collectors.counting()
-                            )
-                    );
-        }
-        Set<Map.Entry<Suit, Long>> groupBySuitSet = groupBySuitMap.entrySet();
-        return groupBySuitSet.size()==1;
-    }
-
     public void evaluateRank() {
         sortAndGroupByValue();
 
         valuesToCompare = new LinkedList<>(sortedGroupByValueMap.keySet());
 
-        Set<Map.Entry<Value, Long>> sortedGroupByEntrySet = sortedGroupByValueMap.entrySet();
+        List<Criteria> criterias = new ArrayList<>();
+        criterias.add(new FourOfAKindCriteria());
+        criterias.add(new FullHouseCriteria());
+        criterias.add(new ThreeOfAKindCriteria());
+        criterias.add(new TwoPairsCriteria());
+        criterias.add(new PairCriteria());
+        criterias.add(new StraightFlushCriteria(cards));
+        criterias.add(new StraightCriteria(cards));
+        criterias.add(new FlushCriteria(cards));
 
-        for (Map.Entry<Value, Long> s : sortedGroupByEntrySet) {
-            if (s.getValue() == 4) { // 4 of a kind
-                highCard = new FourOfAKind(cards, valuesToCompare);
-            } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 2) { // full house
-                highCard = new FullHouse(cards, valuesToCompare);
-            } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 3) { // 3 of a kind
-                highCard = new ThreeOfAKind(cards, valuesToCompare);
-            } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 3) { // 2 pairs
-                highCard = new TwoPairs(cards, valuesToCompare);
-            } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4) { // 1 pair
-                highCard = new Pair(cards, valuesToCompare);
-            } else {
-                if (isStraight()) {
-                    if (isSingleSuit()) { // straight or straight flush
-                        highCard = new StraightFlush(cards, valuesToCompare);
-                    } else {
-                        highCard = new Straight(cards, valuesToCompare);
-                    }
-                } else {
-                    if (isSingleSuit()) {//high card or flush
-                        highCard = new Flush(cards, valuesToCompare);
-                    } else {
-                        highCard = new HighCard(cards, valuesToCompare);
-                    }
-                }
-            }
-            break;
-        }
-    }
-
-    public boolean isStraight() {
-        boolean result = true;
-
-        List<Card> sortedCards = sort();
-        for (int i = 0; i < sortedCards.size() - 1; i++) {
-            if (sortedCards.get(i + 1).getValue() != sortedCards.get(i).getValue().prev()) {
-                result = false;
+        for (Criteria criteria: criterias){
+            highCard = criteria.meetCriteria(sortedGroupByValueMap, valuesToCompare);
+            if (highCard != null)
                 break;
-            }
         }
-        return result;
-    }
-
-    public List<Card> sort() {
-        return cards.stream()
-                .sorted(Comparator.reverseOrder())
-                .collect(Collectors.toList());
+        if (highCard == null){
+            highCard = new HighCard(valuesToCompare);
+        }
     }
 
     @Override
     public int compareTo(Hand otherHand) {
         return highCard.compareTo(otherHand.getHighCard());
-    }
-
-    public String getReason() {
-        return highCard.getReason();
-    }
-
-    public List<Value> getValuesToCompare() {
-        return valuesToCompare;
     }
 
     public HighCard getHighCard() {

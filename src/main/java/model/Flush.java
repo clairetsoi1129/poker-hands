@@ -5,8 +5,8 @@ import util.FlushMessageFormatter;
 import java.util.List;
 
 public class Flush extends HighCard{
-    public Flush(List<Card> cards, List<Value> valuesToCompare) {
-        super(cards, valuesToCompare);
+    public Flush(List<Value> valuesToCompare) {
+        super(valuesToCompare);
         rank = Rank.Flush;
     }
 

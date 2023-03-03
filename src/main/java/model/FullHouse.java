@@ -5,8 +5,8 @@ import util.FullHouseMessageFormatter;
 import java.util.List;
 
 public class FullHouse extends HighCard{
-    public FullHouse(List<Card> cards, List<Value> valuesToCompare) {
-        super(cards, valuesToCompare);
+    public FullHouse(List<Value> valuesToCompare) {
+        super(valuesToCompare);
         rank = Rank.FullHouse;
     }
 
