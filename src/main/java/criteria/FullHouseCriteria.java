@@ -19,6 +19,7 @@ public class FullHouseCriteria extends Criteria{
         for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
             if (s.getValue() == 3 && sortedGroupByValueMap.entrySet().size() == 2) { // full house
                 highCard = new FullHouse(valuesToCompare);
+                break;
             }
         }
         return highCard;
