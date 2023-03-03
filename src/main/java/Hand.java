@@ -50,9 +50,9 @@ public class Hand implements Comparable<Hand>{
                 );
         Set<Map.Entry<Suit, Long>> groupBySuitSet = groupBySuitMap.entrySet();
 
-        rank = Rank.HighCard;
-
+        rank = Rank.HighCard; //default use high cards
         valuesToCompare = new LinkedList<>(sortedGroupByValueMap.keySet());
+
         Set<Map.Entry<Value, Long>> sortedGroupByEntrySet = sortedGroupByValueMap.entrySet();
         for (Map.Entry<Value, Long> s : sortedGroupByEntrySet) {
             if (s.getValue() == 4) { // 4 of a kind
@@ -72,18 +72,22 @@ public class Hand implements Comparable<Hand>{
                 break;
             }else {
                 boolean isStraight = isStraight();
-                if (groupBySuitSet.size() == 1 && isStraight) { // flush or straight flush
-                    rank = Rank.StraightFlush;
-                    break;
-                }else if (groupBySuitSet.size() == 1 && !isStraight){
-                    rank = Rank.Flush;
-                    break;
-                }else if (groupBySuitSet.size() > 1 && isStraight){//high card or straight
-                    rank = Rank.Straight;
-                    break;
-                }else {
-                    rank = Rank.HighCard;
-                    break;
+                if (isStraight){
+                    if (groupBySuitSet.size() == 1) { // straight or straight flush
+                        rank = Rank.StraightFlush;
+                        break;
+                    }else {
+                        rank = Rank.Straight;
+                        break;
+                    }
+                }else{
+                    if (groupBySuitSet.size() == 1){//high card or flush
+                        rank = Rank.Flush;
+                        break;
+                    }else {
+                        rank = Rank.HighCard;
+                        break;
+                    }
                 }
             }
         }
