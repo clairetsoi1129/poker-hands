@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 public class Hand implements Comparable<Hand> {
     private final List<Card> cards;
     private HashMap<Value, Long> sortedGroupByValueMap;
+    private Map<Suit, Long> groupBySuitMap;
 
     private String reason;
     private Rank rank;
@@ -28,7 +29,7 @@ public class Hand implements Comparable<Hand> {
         evaluateRank();
     }
 
-    public void evaluateRank() {
+    private void sortAndGroupByValue(){
         Map<Value, Long> groupByValueMap =
                 cards.stream().collect(
                         Collectors.groupingBy(
@@ -45,19 +46,29 @@ public class Hand implements Comparable<Hand> {
                         sortedGroupByValueMap.put(e.getKey(), e.getValue()));
 
         System.out.println("sortedGroupByValueMap:" + sortedGroupByValueMap);
+    }
 
-        Map<Suit, Long> groupBySuitMap =
-                cards.stream().collect(
-                        Collectors.groupingBy(
-                                Card::getSuit, Collectors.counting()
-                        )
-                );
+    private boolean isSingleSuit() {
+        if (groupBySuitMap == null) {
+            groupBySuitMap =
+                    cards.stream().collect(
+                            Collectors.groupingBy(
+                                    Card::getSuit, Collectors.counting()
+                            )
+                    );
+        }
         Set<Map.Entry<Suit, Long>> groupBySuitSet = groupBySuitMap.entrySet();
+        return groupBySuitSet.size()==1;
+    }
+
+    public void evaluateRank() {
+        sortAndGroupByValue();
 
         rank = Rank.HighCard; //default use high cards
         valuesToCompare = new LinkedList<>(sortedGroupByValueMap.keySet());
 
         Set<Map.Entry<Value, Long>> sortedGroupByEntrySet = sortedGroupByValueMap.entrySet();
+
         for (Map.Entry<Value, Long> s : sortedGroupByEntrySet) {
             if (s.getValue() == 4) { // 4 of a kind
                 rank = Rank.FourOfAKind;
@@ -70,15 +81,14 @@ public class Hand implements Comparable<Hand> {
             } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4) { // 1 pair
                 rank = Rank.Pair;
             } else {
-                boolean isStraight = isStraight();
-                if (isStraight) {
-                    if (groupBySuitSet.size() == 1) { // straight or straight flush
+                if (isStraight()) {
+                    if (isSingleSuit()) { // straight or straight flush
                         rank = Rank.StraightFlush;
                     } else {
                         rank = Rank.Straight;
                     }
                 } else {
-                    if (groupBySuitSet.size() == 1) {//high card or flush
+                    if (isSingleSuit()) {//high card or flush
                         rank = Rank.Flush;
                     } else {
                         rank = Rank.HighCard;
