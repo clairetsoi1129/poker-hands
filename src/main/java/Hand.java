@@ -1,9 +1,9 @@
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Hand implements Comparable<Hand>{
+public class Hand implements Comparable<Hand> {
     private final List<Card> cards;
-    private HashMap<Value,Long> sortedGroupByValueMap;
+    private HashMap<Value, Long> sortedGroupByValueMap;
 
     private String reason;
     private Rank rank;
@@ -24,7 +24,7 @@ public class Hand implements Comparable<Hand>{
         evaluateRank();
     }
 
-    public void evaluateRank(){
+    public void evaluateRank() {
         Map<Value, Long> groupByValueMap =
                 cards.stream().collect(
                         Collectors.groupingBy(
@@ -40,7 +40,7 @@ public class Hand implements Comparable<Hand>{
                 .forEachOrdered(e ->
                         sortedGroupByValueMap.put(e.getKey(), e.getValue()));
 
-        System.out.println("sortedGroupByValueMap:"+sortedGroupByValueMap);
+        System.out.println("sortedGroupByValueMap:" + sortedGroupByValueMap);
 
         Map<Suit, Long> groupBySuitMap =
                 cards.stream().collect(
@@ -58,33 +58,33 @@ public class Hand implements Comparable<Hand>{
             if (s.getValue() == 4) { // 4 of a kind
                 rank = Rank.FourOfAKind;
                 break;
-            }else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 2) { // full house
+            } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 2) { // full house
                 rank = Rank.FullHouse;
                 break;
-            }else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 3) { // 3 of a kind
+            } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 3) { // 3 of a kind
                 rank = Rank.ThreeOfAKind;
                 break;
-            }else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 3){ // 2 pairs
+            } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 3) { // 2 pairs
                 rank = Rank.TwoPairs;
                 break;
-            }else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4){ // 1 pair
+            } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4) { // 1 pair
                 rank = Rank.Pair;
                 break;
-            }else {
+            } else {
                 boolean isStraight = isStraight();
-                if (isStraight){
+                if (isStraight) {
                     if (groupBySuitSet.size() == 1) { // straight or straight flush
                         rank = Rank.StraightFlush;
                         break;
-                    }else {
+                    } else {
                         rank = Rank.Straight;
                         break;
                     }
-                }else{
-                    if (groupBySuitSet.size() == 1){//high card or flush
+                } else {
+                    if (groupBySuitSet.size() == 1) {//high card or flush
                         rank = Rank.Flush;
                         break;
-                    }else {
+                    } else {
                         rank = Rank.HighCard;
                         break;
                     }
@@ -93,11 +93,11 @@ public class Hand implements Comparable<Hand>{
         }
     }
 
-    public boolean isStraight(){
+    public boolean isStraight() {
         boolean result = true;
 
         List<Card> sortedCards = sort();
-        for (int i=0; i<sortedCards.size()-1; i++) {
+        for (int i = 0; i < sortedCards.size() - 1; i++) {
             if (sortedCards.get(i + 1).getValue() != sortedCards.get(i).getValue().prev()) {
                 result = false;
                 break;
@@ -106,28 +106,24 @@ public class Hand implements Comparable<Hand>{
         return result;
     }
 
-    public List<Card> sort(){
+    public List<Card> sort() {
         return cards.stream()
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
     }
 
-    public int compareTo(Rank rank, List<Value> blackValues, List<Value> whiteValues){
+    public int compareTo(Rank rank, List<Value> blackValues, List<Value> whiteValues) {
         int result = 0;
-        for (int i=0; i<blackValues.size(); i++){
+        for (int i = 0; i < blackValues.size(); i++) {
             result = blackValues.get(i).compareTo(whiteValues.get(i));
 
-            if (result != 0){
-                if (result > 0){
-                    formatReason(result, rank, blackValues, i);
-                }else {
-                    formatReason(result, rank, whiteValues, i);
-                }
+            if (result != 0) {
+                formatReason(result, rank, blackValues, whiteValues,i);
                 break;
             }
         }
-        if (result == 0){
-            formatReason(result, rank, blackValues, 0);
+        if (result == 0) {
+            formatReason(result, rank, blackValues, whiteValues,0);
         }
 
         return result;
@@ -136,40 +132,39 @@ public class Hand implements Comparable<Hand>{
     @Override
     public int compareTo(Hand otherHand) {
         int result = this.getRank().compareTo(otherHand.getRank());
-        if (result==0){
+        if (result == 0) {
             result = compareTo(this.getRank(), this.getValuesToCompare(),
                     otherHand.getValuesToCompare());
-        }else if (result>0) {
-            formatReason(result, rank, this.getValuesToCompare(), 0);
-        }else {
-            formatReason(result, rank, otherHand.getValuesToCompare(), 0);
+        } else{
+            formatReason(result, rank, this.getValuesToCompare(), otherHand.getValuesToCompare(),0);
         }
         return result;
     }
 
-    public void formatReason(int compareResult, Rank rank, List<Value> values, int idx){
+    public void formatReason(int compareResult, Rank rank,
+                             List<Value> blackValues, List<Value> whiteValues, int idx) {
         reason = new MessageFormatter(compareResult,
-                this.getRank(),  values, idx).format();
-       if (idx == 0) {
-           if (rank == Rank.FullHouse) {
-               reason = new FullHouseMessageFormatter(compareResult,
-                       this.getRank(), values).format();
-           } else if (rank == Rank.Flush) {
-               reason = new FlushMessageFormatter(compareResult,
-                       this.getRank(), values, idx).format();
-           }
-       }else {
-           if (rank == Rank.Flush) {
-               reason = new FlushMessageFormatter(compareResult,
-                       this.getRank(), values, idx).format();
-           } else if (rank == Rank.Pair) {
-               reason = new PairMessageFormatter(compareResult,
-                       this.getRank(), values, idx).format();
-           } else if (rank == Rank.TwoPairs) {
-               reason = new TwoPairsMessageFormatter(compareResult,
-                       this.getRank(), values, idx).format();
-           }
-       }
+                this.getRank(), blackValues, whiteValues, idx).format();
+        if (idx == 0) {
+            if (rank == Rank.FullHouse) {
+                reason = new FullHouseMessageFormatter(compareResult,
+                        this.getRank(), blackValues, whiteValues).format();
+            } else if (rank == Rank.Flush) {
+                reason = new FlushMessageFormatter(compareResult,
+                        this.getRank(), blackValues, whiteValues, idx).format();
+            }
+        } else {
+            if (rank == Rank.Flush) {
+                reason = new FlushMessageFormatter(compareResult,
+                        this.getRank(), blackValues, whiteValues, idx).format();
+            } else if (rank == Rank.Pair) {
+                reason = new PairMessageFormatter(compareResult,
+                        this.getRank(), blackValues, whiteValues, idx).format();
+            } else if (rank == Rank.TwoPairs) {
+                reason = new TwoPairsMessageFormatter(compareResult,
+                        this.getRank(), blackValues, whiteValues, idx).format();
+            }
+        }
     }
 
     public String getReason() {
@@ -179,6 +174,7 @@ public class Hand implements Comparable<Hand>{
     public Rank getRank() {
         return rank;
     }
+
     public List<Value> getValuesToCompare() {
         return valuesToCompare;
     }
