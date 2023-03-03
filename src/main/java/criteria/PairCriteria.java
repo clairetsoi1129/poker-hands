@@ -1,16 +1,20 @@
 package criteria;
 
+import model.Card;
 import model.HighCard;
 import model.Pair;
 import model.Value;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class PairCriteria implements Criteria{
+public class PairCriteria extends Criteria{
+    public PairCriteria(List<Card> cards) {
+        super(cards);
+    }
+
     @Override
-    public HighCard meetCriteria(HashMap<Value, Long> sortedGroupByValueMap, List<Value> valuesToCompare) {
+    public HighCard meetCriteria() {
         HighCard highCard = null;
         for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
             if (s.getValue() == 2 && sortedGroupByValueMap.entrySet().size() == 4) { // 1 pair

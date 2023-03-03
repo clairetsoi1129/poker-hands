@@ -5,16 +5,15 @@ import model.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class StraightFlushCriteria implements Criteria{
+public class StraightFlushCriteria extends Criteria{
     protected Map<Suit, Long> groupBySuitMap;
-    protected final List<Card> cards;
 
     public StraightFlushCriteria(List<Card> cards) {
-        this.cards = cards;
+        super(cards);
     }
 
     @Override
-    public HighCard meetCriteria(HashMap<Value, Long> sortedGroupByValueMap, List<Value> valuesToCompare) {
+    public HighCard meetCriteria() {
         HighCard highCard = null;
 
         if (isSingleSuit() && isStraight()) {
