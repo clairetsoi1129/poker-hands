@@ -11,19 +11,22 @@ public class FullHouseMessageFormatter extends MessageFormatter{
 
     public FullHouseMessageFormatter(int compare, Rank rank, List<Value> blackValues, List<Value> whiteValues) {
         super(compare, rank, blackValues, whiteValues, 0);
+        message = WIN_REASON_FULL_HOUSE;
     }
 
     public String format(){
-        if (this.compare > 0){
-            return MessageFormat.format(WIN_REASON_FULL_HOUSE,
-                    BLACK, this.rank.getName(), blackValues.get(0), blackValues.get(1));
-
-        }else if (this.compare < 0){
-            return MessageFormat.format(WIN_REASON_FULL_HOUSE,
-                    WHITE, this.rank.getName(), whiteValues.get(0), whiteValues.get(1));
-        }else{
+        if (this.compare == 0){
             return TIE;
-
+        }else {
+            if (this.compare > 0) {
+                whoWin = BLACK;
+                whoseValues = blackValues;
+            } else {
+                whoWin = WHITE;
+                whoseValues = whiteValues;
+            }
+            return MessageFormat.format(message,
+                    whoWin, this.rank.getName(), whoseValues.get(0), whoseValues.get(1));
         }
     }
 }

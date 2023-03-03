@@ -17,6 +17,11 @@ public class MessageFormatter {
     protected final String WIN_REASON = "{0} wins. - with {1}: {2}";
     protected final String TIE = "Tie.";
 
+    protected String whoWin;
+    protected List<Value> whoseValues;
+
+    protected String message;
+
     public MessageFormatter(int compare, Rank rank, List<Value> blackValues,
                             List<Value> whiteValues, int ptr) {
         this.compare = compare;
@@ -24,19 +29,22 @@ public class MessageFormatter {
         this.blackValues = blackValues;
         this.whiteValues = whiteValues;
         this.ptr = ptr;
+        message = WIN_REASON;
     }
 
     public String format(){
-        if (this.compare > 0){
-            return MessageFormat.format(WIN_REASON,
-                    BLACK, this.rank.getName(), blackValues.get(ptr));
-
-        }else if (this.compare < 0){
-            return MessageFormat.format(WIN_REASON,
-                    WHITE, this.rank.getName(), whiteValues.get(ptr));
-        }else{
+        if (this.compare == 0){
             return TIE;
-
+        }else {
+            if (this.compare > 0) {
+                whoWin = BLACK;
+                whoseValues = blackValues;
+            } else {
+                whoWin = WHITE;
+                whoseValues = whiteValues;
+            }
+            return MessageFormat.format(message,
+                    whoWin, this.rank.getName(), whoseValues.get(ptr));
         }
     }
 }

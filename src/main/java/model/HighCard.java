@@ -12,8 +12,8 @@ public class HighCard implements Comparable<HighCard>{
 
     public HighCard(List<Card> cards, List<Value> valuesToCompare) {
         this.cards = cards;
-        rank = Rank.HighCard;
         this.valuesToCompare = valuesToCompare;
+        this.rank = Rank.HighCard;
     }
 
     public int compareTo(HighCard other) {
@@ -22,7 +22,7 @@ public class HighCard implements Comparable<HighCard>{
             result = compareTo(this.getRank(), this.getValuesToCompare(),
                     other.getValuesToCompare());
         } else{ // else compare by rank
-            formatReason(result, rank, this.getValuesToCompare(), other.getValuesToCompare(),0);
+            formatReason(result, this.getRank(), this.getValuesToCompare(), other.getValuesToCompare(),0);
         }
         return result;
     }
