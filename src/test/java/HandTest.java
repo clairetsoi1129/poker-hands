@@ -5,11 +5,9 @@ import org.junit.jupiter.params.provider.CsvFileSource;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class HandTest {
     private List<Card> cardBlack;
-    private List<Card> cardWhite;
 
     @Test
     void testFindPair() {
@@ -22,10 +20,9 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-        List<Value> pairs = handBlack.getPairs();
 
-        assertEquals(1, pairs.size());
-        assertEquals(Value.ACE, pairs.get(0));
+        assertEquals(Rank.Pair, handBlack.getRank());
+        assertEquals(Value.ACE, handBlack.getValuesToCompare().get(0));
     }
 
     @Test
@@ -39,11 +36,10 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-        List<Value> pairs = handBlack.getPairs();
 
-        assertEquals(2, pairs.size());
-        assertEquals(Value.FOUR, pairs.get(0));
-        assertEquals(Value.THREE, pairs.get(1));
+        assertEquals(Rank.TwoPairs, handBlack.getRank());
+        assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(0));
+        assertEquals(Value.THREE, handBlack.getValuesToCompare().get(1));
     }
 
     @Test
@@ -57,9 +53,9 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-        Value threeOfAKind = handBlack.getThreeOfAKind();
 
-        assertEquals(Value.FOUR, threeOfAKind);
+        assertEquals(Rank.ThreeOfAKind, handBlack.getRank());
+        assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(0));
     }
 
     @Test
@@ -73,8 +69,8 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-
-        assertEquals(Value.SIX, handBlack.getStraight());
+        assertEquals(Rank.Straight, handBlack.getRank());
+        assertEquals(Value.SIX, handBlack.getValuesToCompare().get(0));
     }
 
     @Test
@@ -88,12 +84,12 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-
-        assertEquals(Value.TEN, handBlack.getFlush().get(0));
-        assertEquals(Value.SIX, handBlack.getFlush().get(1));
-        assertEquals(Value.FOUR, handBlack.getFlush().get(2));
-        assertEquals(Value.THREE, handBlack.getFlush().get(3));
-        assertEquals(Value.DEDUCE, handBlack.getFlush().get(4));
+        assertEquals(Rank.Flush, handBlack.getRank());
+        assertEquals(Value.TEN, handBlack.getValuesToCompare().get(0));
+        assertEquals(Value.SIX, handBlack.getValuesToCompare().get(1));
+        assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(2));
+        assertEquals(Value.THREE, handBlack.getValuesToCompare().get(3));
+        assertEquals(Value.DEDUCE, handBlack.getValuesToCompare().get(4));
     }
 
     @Test
@@ -108,7 +104,8 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Value.THREE, handBlack.getFullHouse());
+        assertEquals(Rank.FullHouse, handBlack.getRank());
+        assertEquals(Value.THREE, handBlack.getValuesToCompare().get(0));
     }
 
     @Test
@@ -122,9 +119,9 @@ public class HandTest {
         };
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
-        Value fourOfAKind = handBlack.getFourOfAKind();
 
-        assertEquals(Value.FOUR, fourOfAKind);
+        assertEquals(Rank.FourOfAKind, handBlack.getRank());
+        assertEquals(Value.FOUR, handBlack.getValuesToCompare().get(0));
     }
 
     @Test
@@ -139,7 +136,8 @@ public class HandTest {
         cardBlack = Arrays.asList(cards);
         Hand handBlack = new Hand(cardBlack);
 
-        assertEquals(Value.SIX, handBlack.getStraightFlush());
+        assertEquals(Rank.StraightFlush, handBlack.getRank());
+        assertEquals(Value.SIX, handBlack.getValuesToCompare().get(0));
     }
 
     @ParameterizedTest

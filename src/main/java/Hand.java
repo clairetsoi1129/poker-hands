@@ -4,27 +4,14 @@ import java.util.stream.Collectors;
 
 public class Hand implements Comparable<Hand>{
     private final List<Card> cards;
-    private HashMap<Value,Integer> cardValueMap;
-    private HashMap<Suit,Integer> cardSuitMap;
-
-    private List<Value> pairs;
-    private Value threeOfAKind;
-
-    private Value fourOfAKind;
-
-    private Value straight;
-
-    private List<Value> flush;
-
-    private Value fullHouse;
-
-    private Value straightFlush;
-
+    private HashMap<Value,Long> sortedGroupByValueMap;
+    private final String BLACK_WIN = "Black win. - with {0}: {1}";
+    private final String WHITE_WIN = "White win. - with {0}: {1}";
+    private final String TIE = "Tie.";
     private String reason;
-
     private Rank rank;
 
-    private Value valueToCompare;
+    private List<Value> valuesToCompare;
 
     public Hand(List<Card> cards) {
         this.cards = cards;
@@ -41,100 +28,90 @@ public class Hand implements Comparable<Hand>{
     }
 
     public void evaluateRank(){
-        rank = Rank.HighCard; //default is high card
+        Map<Value, Long> groupByValueMap =
+                cards.stream().collect(
+                        Collectors.groupingBy(
+                                Card::getValue, Collectors.counting()
+                        )
+                );
 
-        // Check pairs /  3 of a kind
-        cardValueMap = new LinkedHashMap<>();
-        for (Card card : cards) {
-            cardValueMap.merge(card.getValue(), 1, Integer::sum);
-        }
-        pairs = new ArrayList<>();
-        for (Value key: cardValueMap.keySet()){
-            if (cardValueMap.get(key) == 2){
-                pairs.add(key);
-            }else if (cardValueMap.get(key) == 3){
-                threeOfAKind = key;
-                rank = Rank.ThreeOfAKind;
-                valueToCompare = key;
-            }else if (cardValueMap.get(key) == 4){
-                fourOfAKind = key;
+        System.out.println("GroupByValue:"+groupByValueMap);
+
+        sortedGroupByValueMap = new LinkedHashMap<>();
+
+        //Sort the map by Count and by Value, then add to sortedMap
+        groupByValueMap.entrySet().stream()
+                .sorted(Map.Entry.<Value, Long>comparingByKey().reversed()) // sort by card's value desc
+                .sorted(Map.Entry.<Value, Long>comparingByValue().reversed()) // sort by card value's count desc
+                .forEachOrdered(e ->
+                        sortedGroupByValueMap.put(e.getKey(), e.getValue()));
+
+        System.out.println("sortedGroupByValueMap:"+sortedGroupByValueMap);
+
+        Map<Suit, Long> groupBySuitMap =
+                cards.stream().collect(
+                        Collectors.groupingBy(
+                                Card::getSuit, Collectors.counting()
+                        )
+                );
+        Set<Map.Entry<Suit, Long>> groupBySuitSet = groupBySuitMap.entrySet();
+
+        rank = Rank.HighCard;
+
+        valuesToCompare = new LinkedList<>(sortedGroupByValueMap.keySet());
+        Set<Map.Entry<Value, Long>> sortedGroupByEntrySet = sortedGroupByValueMap.entrySet();
+        for (Map.Entry<Value, Long> s : sortedGroupByEntrySet) {
+            if (s.getValue() == 4) { // 4 of a kind
                 rank = Rank.FourOfAKind;
-                valueToCompare = key;
-            }
-        }
-        if (pairs.size() == 2)
-            rank = Rank.TwoPairs;
-        else if (pairs.size() == 1)
-            rank = Rank.Pair;
-
-
-        if (threeOfAKind != null && pairs.size() == 1){
-            fullHouse = threeOfAKind;
-            rank = Rank.FullHouse;
-            valueToCompare = threeOfAKind;
-        }
-
-        // Check Straight
-        List<Card> sortedCards = this.sort();
-        straight = sortedCards.get(0).getValue();
-        for (int i=0; i<sortedCards.size()-1; i++) {
-            if (sortedCards.get(i + 1).getValue() != sortedCards.get(i).getValue().prev()) {
-                straight = null;
                 break;
-            }
-        }
-        if (straight != null) {
-            rank = Rank.Straight;
-            valueToCompare = straight;
-        }
-
-        // Check Flush
-        cardSuitMap = new LinkedHashMap<>();
-        for (Card card : sortedCards) {
-            cardSuitMap.merge(card.getSuit(), 1, Integer::sum);
-        }
-        flush = new ArrayList<>();
-        for (Suit key: cardSuitMap.keySet()){
-            if (cardSuitMap.get(key) == 5){
-                for (Card card : sortedCards) {
-                    flush.add(card.getValue());
+            }else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 2) { // full house
+                rank = Rank.FullHouse;
+                break;
+            }else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 3) { // 3 of a kind
+                rank = Rank.ThreeOfAKind;
+                break;
+            }else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 3){ // 2 pairs
+                rank = Rank.TwoPairs;
+                break;
+            }else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4){ // 1 pair
+                rank = Rank.Pair;
+                break;
+            }else {
+                boolean isStraight = isStraight();
+                if (groupBySuitSet.size() == 1 && isStraight) { // flush or straight flush
+                    rank = Rank.StraightFlush;
+                    break;
+                }else if (groupBySuitSet.size() == 1 && !isStraight){
+                    rank = Rank.Flush;
+                    break;
+                }else if (groupBySuitSet.size() > 1 && isStraight){//high card or straight
+                    rank = Rank.Straight;
+                    break;
+                }else {
+                    rank = Rank.HighCard;
+                    break;
                 }
-                rank = Rank.Flush;
-                valueToCompare = flush.get(0);
             }
-        }
-
-        if (straight != null && flush.size() > 0){
-            straightFlush = straight;
-            rank = Rank.StraightFlush;
-            valueToCompare = flush.get(0);
         }
     }
 
+    public boolean isStraight(){
+        boolean result = true;
 
+        List<Card> sortedCards = this.sort();
+        for (int i=0; i<sortedCards.size()-1; i++) {
+            if (sortedCards.get(i + 1).getValue() != sortedCards.get(i).getValue().prev()) {
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
 
     public List<Card> sort(){
         return cards.stream()
                 .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList());
-    }
-
-    public List<Card> getCards() {
-        return cards;
-    }
-
-    public int compareTo(Rank rank, Value blackValue, Value whiteValue){
-        int result = blackValue.compareTo(whiteValue);
-        if (result == 0){
-            reason = "Tie.";
-        }else if (result > 0){
-            reason = MessageFormat.format("Black win. - with {0}: {1}",
-                    rank.getName(), blackValue);
-        }else {
-            reason = MessageFormat.format("White win. - with {0}: {1}",
-                    rank.getName(), whiteValue);
-        }
-        return result;
     }
 
     public int compareTo(Rank rank, List<Value> blackValues, List<Value> whiteValues){
@@ -143,17 +120,15 @@ public class Hand implements Comparable<Hand>{
             result = blackValues.get(i).compareTo(whiteValues.get(i));
             if (result != 0){
                 if (result > 0){
-                    reason = MessageFormat.format("Black win. - with {0}: {1}",
-                            rank.getName(), blackValues.get(i));
+                    reason = MessageFormat.format(BLACK_WIN, rank.getName(), blackValues.get(i));
                 }else {
-                    reason = MessageFormat.format("White win. - with {0}: {1}",
-                            rank.getName(), whiteValues.get(i));
+                    reason = MessageFormat.format(WHITE_WIN, rank.getName(), whiteValues.get(i));
                 }
                 break;
             }
         }
         if (result == 0){
-            reason = "Tie.";
+            reason = TIE;
         }
 
         return result;
@@ -163,52 +138,16 @@ public class Hand implements Comparable<Hand>{
     public int compareTo(Hand otherHand) {
         int result = this.getRank().compareTo(otherHand.getRank());
         if (result==0){
-            if (this.getRank()==Rank.StraightFlush || this.getRank()==Rank.FourOfAKind
-            || this.getRank()==Rank.FullHouse || this.getRank() == Rank.Straight
-            || this.getRank()==Rank.ThreeOfAKind){
-                //compare highest
-                result = compareTo(this.getRank(), this.getValueToCompare(), otherHand.getValueToCompare());
-            }else if (this.getRank()==Rank.Flush){
-                result = compareTo(this.getRank(), this.getFlush(), otherHand.getFlush());
-
-            }
+            result = compareTo(this.getRank(), this.getValuesToCompare(),
+                    otherHand.getValuesToCompare());
         }else if (result>0) {
-            reason = MessageFormat.format("Black win. - with {0}: {1}",
-                    this.getRank().getName(), this.getValueToCompare());
+            reason = MessageFormat.format(BLACK_WIN,
+                    this.getRank().getName(), this.getValuesToCompare().get(0));
         }else {
-            reason = MessageFormat.format("White win. - with {0}: {1}",
-                    otherHand.getRank().getName(), otherHand.getValueToCompare());
+            reason = MessageFormat.format(WHITE_WIN,
+                    otherHand.getRank().getName(), otherHand.getValuesToCompare().get(0));
         }
         return result;
-    }
-
-
-    public List<Value> getPairs(){
-        return pairs;
-    }
-
-    public Value getThreeOfAKind() {
-        return threeOfAKind;
-    }
-
-    public Value getStraight() {
-        return straight;
-    }
-
-    public List<Value> getFlush() {
-        return flush;
-    }
-
-    public Value getFullHouse() {
-        return fullHouse;
-    }
-
-    public Value getFourOfAKind() {
-        return fourOfAKind;
-    }
-
-    public Value getStraightFlush() {
-        return straightFlush;
     }
 
     public String getReason() {
@@ -218,8 +157,7 @@ public class Hand implements Comparable<Hand>{
     public Rank getRank() {
         return rank;
     }
-
-    public Value getValueToCompare() {
-        return valueToCompare;
+    public List<Value> getValuesToCompare() {
+        return valuesToCompare;
     }
 }
