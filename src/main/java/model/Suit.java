@@ -1,3 +1,5 @@
+package model;
+
 public enum Suit {
     CLUBS('C'),
     DIAMONDS('D'),

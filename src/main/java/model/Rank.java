@@ -1,3 +1,5 @@
+package model;
+
 public enum Rank {
     HighCard("high card"),
     Pair("pair"),

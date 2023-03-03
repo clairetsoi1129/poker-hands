@@ -1,3 +1,5 @@
+package model;
+
 public enum Value {
     DEDUCE('2'),
     THREE('3'),

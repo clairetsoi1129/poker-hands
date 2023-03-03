@@ -1,3 +1,7 @@
+package model;
+
+import util.*;
+
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -33,7 +37,7 @@ public class Hand implements Comparable<Hand> {
                 );
         sortedGroupByValueMap = new LinkedHashMap<>();
 
-        //Sort the map by Count and by Value, then add to sortedMap
+        //Sort the map by Count and by model.Value, then add to sortedMap
         groupByValueMap.entrySet().stream()
                 .sorted(Map.Entry.<Value, Long>comparingByKey().reversed()) // sort by card's value desc
                 .sorted(Map.Entry.<Value, Long>comparingByValue().reversed()) // sort by card value's count desc
@@ -57,39 +61,31 @@ public class Hand implements Comparable<Hand> {
         for (Map.Entry<Value, Long> s : sortedGroupByEntrySet) {
             if (s.getValue() == 4) { // 4 of a kind
                 rank = Rank.FourOfAKind;
-                break;
             } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 2) { // full house
                 rank = Rank.FullHouse;
-                break;
             } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 3) { // 3 of a kind
                 rank = Rank.ThreeOfAKind;
-                break;
             } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 3) { // 2 pairs
                 rank = Rank.TwoPairs;
-                break;
             } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4) { // 1 pair
                 rank = Rank.Pair;
-                break;
             } else {
                 boolean isStraight = isStraight();
                 if (isStraight) {
                     if (groupBySuitSet.size() == 1) { // straight or straight flush
                         rank = Rank.StraightFlush;
-                        break;
                     } else {
                         rank = Rank.Straight;
-                        break;
                     }
                 } else {
                     if (groupBySuitSet.size() == 1) {//high card or flush
                         rank = Rank.Flush;
-                        break;
                     } else {
                         rank = Rank.HighCard;
-                        break;
                     }
                 }
             }
+            break;
         }
     }
 

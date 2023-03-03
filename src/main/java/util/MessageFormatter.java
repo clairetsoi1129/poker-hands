@@ -1,3 +1,8 @@
+package util;
+
+import model.Rank;
+import model.Value;
+
 import java.text.MessageFormat;
 import java.util.List;
 
