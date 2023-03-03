@@ -31,9 +31,6 @@ public class Hand implements Comparable<Hand>{
                                 Card::getValue, Collectors.counting()
                         )
                 );
-
-        System.out.println("GroupByValue:"+groupByValueMap);
-
         sortedGroupByValueMap = new LinkedHashMap<>();
 
         //Sort the map by Count and by Value, then add to sortedMap
@@ -95,7 +92,7 @@ public class Hand implements Comparable<Hand>{
     public boolean isStraight(){
         boolean result = true;
 
-        List<Card> sortedCards = this.sort();
+        List<Card> sortedCards = sort();
         for (int i=0; i<sortedCards.size()-1; i++) {
             if (sortedCards.get(i + 1).getValue() != sortedCards.get(i).getValue().prev()) {
                 result = false;
@@ -147,32 +144,17 @@ public class Hand implements Comparable<Hand>{
     }
 
     public void formatReason(int compareResult, Rank rank, List<Value> values, int idx){
-       if (idx == 0){
-            if (rank == Rank.FullHouse) {
-                reason = new FullHouseMessageFormatter(compareResult,
-                        this.getRank(), values).format();
-            }else if (rank == Rank.Flush) {
-                reason = new FlushMessageFormatter(compareResult,
-                        this.getRank(), values, idx).format();
-            }else {
-                reason = new MessageFormatter(compareResult,
-                        this.getRank(),  values, idx).format();
-            }
-        }else if (idx == 1) {
-            if (rank == Rank.Flush) {
-                reason = new FlushMessageFormatter(compareResult,
-                        this.getRank(), values, idx).format();
-            } else if (rank == Rank.Pair) {
-                reason = new PairMessageFormatter(compareResult,
-                        this.getRank(), values, idx).format();
-            } else if (rank == Rank.TwoPairs) {
-                reason = new TwoPairsMessageFormatter(compareResult,
-                        this.getRank(), values, idx).format();
-            } else {
-                reason = new MessageFormatter(compareResult,
-                        this.getRank(),  values, idx).format();
-            }
-        }else {
+        reason = new MessageFormatter(compareResult,
+                this.getRank(),  values, idx).format();
+       if (idx == 0) {
+           if (rank == Rank.FullHouse) {
+               reason = new FullHouseMessageFormatter(compareResult,
+                       this.getRank(), values).format();
+           } else if (rank == Rank.Flush) {
+               reason = new FlushMessageFormatter(compareResult,
+                       this.getRank(), values, idx).format();
+           }
+       }else {
            if (rank == Rank.Flush) {
                reason = new FlushMessageFormatter(compareResult,
                        this.getRank(), values, idx).format();
@@ -181,9 +163,6 @@ public class Hand implements Comparable<Hand>{
                        this.getRank(), values, idx).format();
            } else if (rank == Rank.TwoPairs) {
                reason = new TwoPairsMessageFormatter(compareResult,
-                       this.getRank(), values, idx).format();
-           } else {
-               reason = new MessageFormatter(compareResult,
                        this.getRank(), values, idx).format();
            }
        }
