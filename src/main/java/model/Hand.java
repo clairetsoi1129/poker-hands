@@ -1,7 +1,5 @@
 package model;
 
-import util.*;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -10,10 +8,10 @@ public class Hand implements Comparable<Hand> {
     private HashMap<Value, Long> sortedGroupByValueMap;
     private Map<Suit, Long> groupBySuitMap;
 
-    private String reason;
     private Rank rank;
-
     private List<Value> valuesToCompare;
+
+    private HighCard highCard;
 
     public Hand(List<Card> cards) {
         this.cards = cards;
@@ -72,26 +70,35 @@ public class Hand implements Comparable<Hand> {
         for (Map.Entry<Value, Long> s : sortedGroupByEntrySet) {
             if (s.getValue() == 4) { // 4 of a kind
                 rank = Rank.FourOfAKind;
+                highCard = new FourOfAKind(cards, valuesToCompare);
             } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 2) { // full house
                 rank = Rank.FullHouse;
+                highCard = new FullHouse(cards, valuesToCompare);
             } else if (s.getValue() == 3 && sortedGroupByEntrySet.size() == 3) { // 3 of a kind
                 rank = Rank.ThreeOfAKind;
+                highCard = new ThreeOfAKind(cards, valuesToCompare);
             } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 3) { // 2 pairs
                 rank = Rank.TwoPairs;
+                highCard = new TwoPairs(cards, valuesToCompare);
             } else if (s.getValue() == 2 && sortedGroupByEntrySet.size() == 4) { // 1 pair
                 rank = Rank.Pair;
+                highCard = new Pair(cards, valuesToCompare);
             } else {
                 if (isStraight()) {
                     if (isSingleSuit()) { // straight or straight flush
                         rank = Rank.StraightFlush;
+                        highCard = new StraightFlush(cards, valuesToCompare);
                     } else {
                         rank = Rank.Straight;
+                        highCard = new Straight(cards, valuesToCompare);
                     }
                 } else {
                     if (isSingleSuit()) {//high card or flush
                         rank = Rank.Flush;
+                        highCard = new Flush(cards, valuesToCompare);
                     } else {
                         rank = Rank.HighCard;
+                        highCard = new HighCard(cards, valuesToCompare);
                     }
                 }
             }
@@ -124,12 +131,12 @@ public class Hand implements Comparable<Hand> {
             result = blackValues.get(i).compareTo(whiteValues.get(i));
 
             if (result != 0) {
-                formatReason(result, rank, blackValues, whiteValues,i);
+                highCard.formatReason(result, rank, blackValues, whiteValues,i);
                 break;
             }
         }
         if (result == 0) {
-            formatReason(result, rank, blackValues, whiteValues,0);
+            highCard.formatReason(result, rank, blackValues, whiteValues,0);
         }
 
         return result;
@@ -142,39 +149,13 @@ public class Hand implements Comparable<Hand> {
             result = compareTo(this.getRank(), this.getValuesToCompare(),
                     otherHand.getValuesToCompare());
         } else{
-            formatReason(result, rank, this.getValuesToCompare(), otherHand.getValuesToCompare(),0);
+            highCard.formatReason(result, rank, this.getValuesToCompare(), otherHand.getValuesToCompare(),0);
         }
         return result;
     }
 
-    public void formatReason(int compareResult, Rank rank,
-                             List<Value> blackValues, List<Value> whiteValues, int idx) {
-        reason = new MessageFormatter(compareResult,
-                this.getRank(), blackValues, whiteValues, idx).format();
-        if (idx == 0) {
-            if (rank == Rank.FullHouse) {
-                reason = new FullHouseMessageFormatter(compareResult,
-                        this.getRank(), blackValues, whiteValues).format();
-            } else if (rank == Rank.Flush) {
-                reason = new FlushMessageFormatter(compareResult,
-                        this.getRank(), blackValues, whiteValues, idx).format();
-            }
-        } else {
-            if (rank == Rank.Flush) {
-                reason = new FlushMessageFormatter(compareResult,
-                        this.getRank(), blackValues, whiteValues, idx).format();
-            } else if (rank == Rank.Pair) {
-                reason = new PairMessageFormatter(compareResult,
-                        this.getRank(), blackValues, whiteValues, idx).format();
-            } else if (rank == Rank.TwoPairs) {
-                reason = new TwoPairsMessageFormatter(compareResult,
-                        this.getRank(), blackValues, whiteValues, idx).format();
-            }
-        }
-    }
-
     public String getReason() {
-        return reason;
+        return highCard.getReason();
     }
 
     public Rank getRank() {

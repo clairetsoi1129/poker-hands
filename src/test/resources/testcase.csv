@@ -15,11 +15,11 @@ AH AC AS AD 8H, 2C 2D 2H 2S 8C, Black wins. - with four of a kind: A, Four of a 
 2H 2C 2S 3D 4H, 6C 6D 6H TS 3C, White wins. - with three of a kind: 6, Three of a kind vs Three of a kind
 AH AC AS QD 8H, 7C 7D 7H 5S 8C, Black wins. - with three of a kind: A, Three of a kind vs Three of a kind
 KH KC AS KD 8H, 9C 7D 7H 7S 8C, Black wins. - with three of a kind: K, Three of a kind vs Three of a kind
-2H 2C 3S 3D 4H, 6C 6D TH TS 3C, White wins. - with two pairs: T, Two pairs vs Two pairs and pairs both greater than black
+2H 2C 3S 3D 4H, 6C 6D TH TS 3C, White wins. - two pairs with higher pair: T, Two pairs vs Two pairs and pairs both greater than black
 JH JC QS QD KH, QC QD 8H AS 8C, Black wins. - two pairs with higher pair: J, Two pairs vs Two pairs and 1 pair same and 1 pair greater than white
 KH KC AS AD 8H, AC AH 7H KS KD, Black wins. - same two pairs with high card: 8, Two pairs vs Two pairs and 2 pairs same and the remaining greater than white
 KH KC AS AD 8H, AC AH 8D KS KD, Tie.
-JH JC TS QD KH, QC KD 8H AS 8C, Black wins. - with pair: J, Pair vs Pair and pair greater than other
+JH JC TS QD KH, QC KD 8H AS 8C, Black wins. - pair with higher pair: J, Pair vs Pair and pair greater than other
 KH 8C 2S AD 8H, JC 3H 8H 8S TD, Black wins. - same pair with high card: A, Pair vs Pair and pair same and remaining number differ
 KH 8C 2S AD 8H, KC 3H 8H 8S AD, White wins. - same pair with high card: 3, Pair vs Pair and pair same and remaining number differ except smallest one
 KH QC AS 2D 8H, 5C 3H 7H JS TD, Black wins. - with high card: A, High card vs High card and all values different
