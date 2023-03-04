@@ -17,7 +17,7 @@ public class ThreeOfAKindCriteria extends Criteria{
     public HighCard meetCriteria() {
         HighCard highCard = null;
         for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
-            if (s.getValue() == 3 && sortedGroupByValueMap.entrySet().size() == 3) { // 3 of a kind
+            if (s.getValue() == 3) { // 3 of a kind
                 highCard = new ThreeOfAKind( valuesToCompare);
                 break;
             }

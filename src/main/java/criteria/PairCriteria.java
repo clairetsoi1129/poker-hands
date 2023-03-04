@@ -17,7 +17,7 @@ public class PairCriteria extends Criteria{
     public HighCard meetCriteria() {
         HighCard highCard = null;
         for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
-            if (s.getValue() == 2 && sortedGroupByValueMap.entrySet().size() == 4) { // 1 pair
+            if (s.getValue() == 2) { // 1 pair
                 highCard = new Pair(valuesToCompare);
                 break;
             }

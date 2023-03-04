@@ -1,27 +1,27 @@
 package criteria;
 
-import model.Card;
-import model.FullHouse;
-import model.HighCard;
-import model.Value;
+import model.*;
 
 import java.util.List;
-import java.util.Map;
 
 public class FullHouseCriteria extends Criteria{
-    public FullHouseCriteria(List<Card> cards) {
+    private final Criteria threeOfAKindCriteria;
+    private final Criteria pairCriteria;
+
+    public FullHouseCriteria(List<Card> cards, Criteria threeOfAKindCriteria, Criteria pairCriteria) {
         super(cards);
+        this.threeOfAKindCriteria = threeOfAKindCriteria;
+        this.pairCriteria = pairCriteria;
     }
 
     @Override
     public HighCard meetCriteria() {
         HighCard highCard = null;
-        for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
-            if (s.getValue() == 3 && sortedGroupByValueMap.entrySet().size() == 2) { // full house
-                highCard = new FullHouse(valuesToCompare);
-                break;
-            }
+
+        if (threeOfAKindCriteria.meetCriteria() != null && pairCriteria.meetCriteria() != null) {
+            highCard = new FullHouse(valuesToCompare);
         }
+
         return highCard;
     }
 }
