@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class FullHouseTest {
     @Test
     void testFullHousevsHighCard() {
-        Hand handBlack = new Hand("AH AH AH JH JH");
+        Hand handBlack = new Hand("AH AC AD JH JC");
         Hand handWhite = new Hand("KD QH 9H 8C 2S");
 
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(),
@@ -23,7 +23,7 @@ public class FullHouseTest {
 
     @Test
     void testFullHousevsPair() {
-        Hand handBlack = new Hand("AH AH AH JH JH");
+        Hand handBlack = new Hand("AH AC AD JH JC");
         Hand handWhite = new Hand("KD KH 9H 8C 2S");
 
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(),
@@ -51,7 +51,7 @@ public class FullHouseTest {
     @Test
     void testFullHousevsThreeOfAKind() {
         Hand handBlack = new Hand("AH AC AD JC JH");
-        Hand handWhite = new Hand("TD TH TD KC 2S");
+        Hand handWhite = new Hand("TD TH TS KC 2S");
 
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(),
                 new ThreeOfAKindCriteria(handBlack.getCards()),
@@ -76,7 +76,7 @@ public class FullHouseTest {
 
     @Test
     void testFullHousevsFlush() {
-        Hand handBlack = new Hand("AH AC AD JH JH");
+        Hand handBlack = new Hand("AH AC AD JH JC");
         Hand handWhite = new Hand("KH 3H QH JH 9H");
 
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(),

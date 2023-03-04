@@ -33,7 +33,7 @@ public class StraightTest {
     @Test
     void testStraightvsTwoPairs() {
         Hand handBlack = new Hand("AD KH QH JC TS");
-        Hand handWhite = new Hand("KD KH 9H 9C 2S");
+        Hand handWhite = new Hand("KD KC 9H 9C 2S");
 
         Rank rankBlack = new StraightCriteria(handBlack.getCards()).meetCriteria();
         Rank rankWhite = new TwoPairsCriteria(handWhite.getCards()).meetCriteria();
@@ -45,7 +45,7 @@ public class StraightTest {
     @Test
     void testStraightvsThreeOfAKind() {
         Hand handBlack = new Hand("AD KH QH JC TS");
-        Hand handWhite = new Hand("TD TH TH KC 2S");
+        Hand handWhite = new Hand("TD TH TC KC 2S");
 
         Rank rankBlack = new StraightCriteria(handBlack.getCards()).meetCriteria();
         Rank rankWhite = new ThreeOfAKindCriteria(handWhite.getCards()).meetCriteria();

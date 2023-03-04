@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class ThreeOfAKindTest {
     @Test
     void testThreeOfAKindvsHighCard() {
-        Hand handBlack = new Hand("AD AH AH 9C 2S");
+        Hand handBlack = new Hand("AD AH AS 9C 2S");
         Hand handWhite = new Hand("KD QH 9H 8C 2S");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards()).meetCriteria();
@@ -24,7 +24,7 @@ public class ThreeOfAKindTest {
 
     @Test
     void testThreeOfAKindvsPair() {
-        Hand handBlack = new Hand("AD AH AH 9C 2S");
+        Hand handBlack = new Hand("AD AH AS 9C 2S");
         Hand handWhite = new Hand("KD KH 9H 8C 2S");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards()).meetCriteria();
@@ -35,7 +35,7 @@ public class ThreeOfAKindTest {
 
     @Test
     void testThreeOfAKindvsTwoPairs() {
-        Hand handBlack = new Hand("AD AH AH 9C 2S");
+        Hand handBlack = new Hand("AD AH AS 9C 2S");
         Hand handWhite = new Hand("KD KH 9H 9C 2S");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards()).meetCriteria();
@@ -47,8 +47,8 @@ public class ThreeOfAKindTest {
 
     @Test
     void testThreeOfAKindvsThreeOfAKind() {
-        Hand handBlack = new Hand("AD AH AH QC 3S");
-        Hand handWhite = new Hand("TD TH TH KC 2S");
+        Hand handBlack = new Hand("AD AH AS QC 3S");
+        Hand handWhite = new Hand("TD TH TC KC 2S");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards()).meetCriteria();
         Rank rankWhite = new ThreeOfAKindCriteria(handWhite.getCards()).meetCriteria();

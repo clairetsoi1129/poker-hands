@@ -45,7 +45,7 @@ public class FlushTest {
     @Test
     void testFlushvsThreeOfAKind() {
         Hand handBlack = new Hand("AH KH QH JH 9H");
-        Hand handWhite = new Hand("TD TH TH KC 2S");
+        Hand handWhite = new Hand("TD TH TC KC 2S");
 
         Rank rankBlack = new FlushCriteria(handBlack.getCards()).meetCriteria();
         Rank rankWhite = new ThreeOfAKindCriteria(handWhite.getCards()).meetCriteria();
