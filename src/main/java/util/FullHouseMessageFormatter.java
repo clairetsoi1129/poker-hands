@@ -18,13 +18,6 @@ public class FullHouseMessageFormatter extends MessageFormatter{
         if (this.compare == 0){
             return TIE;
         }else {
-            if (this.compare > 0) {
-                whoWin = BLACK;
-                whoseValues = blackValues;
-            } else {
-                whoWin = WHITE;
-                whoseValues = whiteValues;
-            }
             return MessageFormat.format(message,
                     whoWin, this.rank.getName(), whoseValues.get(0), whoseValues.get(1));
         }

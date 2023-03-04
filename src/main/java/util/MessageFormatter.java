@@ -30,19 +30,19 @@ public class MessageFormatter {
         this.whiteValues = whiteValues;
         this.ptr = ptr;
         message = WIN_REASON;
+        if (this.compare > 0) {
+            whoWin = BLACK;
+            whoseValues = blackValues;
+        } else {
+            whoWin = WHITE;
+            whoseValues = whiteValues;
+        }
     }
 
     public String format(){
         if (this.compare == 0){
             return TIE;
         }else {
-            if (this.compare > 0) {
-                whoWin = BLACK;
-                whoseValues = blackValues;
-            } else {
-                whoWin = WHITE;
-                whoseValues = whiteValues;
-            }
             return MessageFormat.format(message,
                     whoWin, this.rank.getName(), whoseValues.get(ptr));
         }
