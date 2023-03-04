@@ -4,7 +4,7 @@ import util.FlushMessageFormatter;
 
 import java.util.List;
 
-public class Flush extends HighCard implements Comparable<Rank>{
+public class Flush extends HighCard{
     public Flush(List<Value> valuesToCompare) {
         super(valuesToCompare);
         rankType = RankType.Flush;

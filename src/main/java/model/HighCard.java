@@ -4,7 +4,7 @@ import util.*;
 
 import java.util.*;
 
-public class HighCard extends Rank implements Comparable<Rank>{
+public class HighCard implements Comparable<Rank>, Rank{
     protected RankType rankType;
     protected List<Value> valuesToCompare;
     protected String reason;

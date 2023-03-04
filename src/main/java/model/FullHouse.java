@@ -4,7 +4,7 @@ import util.FullHouseMessageFormatter;
 
 import java.util.List;
 
-public class FullHouse extends HighCard implements Comparable<Rank>{
+public class FullHouse extends HighCard{
     public FullHouse(List<Value> valuesToCompare) {
         super(valuesToCompare);
         rankType = RankType.FullHouse;

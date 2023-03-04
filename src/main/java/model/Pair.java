@@ -4,7 +4,7 @@ import util.PairMessageFormatter;
 
 import java.util.List;
 
-public class Pair extends HighCard implements Comparable<Rank>{
+public class Pair extends HighCard{
     public Pair(List<Value> valuesToCompare) {
         super(valuesToCompare);
         rankType = RankType.Pair;
