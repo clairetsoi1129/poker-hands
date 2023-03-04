@@ -53,4 +53,15 @@ public class PairTest {
         assertEquals("Tie.", rankBlack.getReason());
     }
 
+    @Test
+    void testPairvsHighCard2() {
+        Hand handBlack = new Hand("7H 2D AH 9H KS");
+        Hand handWhite = new Hand("JS 3H QC QD 5D");
+
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
+        Rank rankWhite = new PairCriteria(handWhite.getCards()).meetCriteria();
+        assertTrue(rankBlack.compareTo(rankWhite) < 0);
+        assertEquals("White wins. - with pair: Q", rankBlack.getReason());
+    }
+
 }

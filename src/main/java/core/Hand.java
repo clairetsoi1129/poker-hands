@@ -78,4 +78,10 @@ public class Hand implements Comparable<Hand> {
     public List<Card> getCards() {
         return cards;
     }
+
+    public String toString(){
+        return cards.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(" ", "{", "}"));
+    }
 }

@@ -13,9 +13,10 @@ public class FullHouse extends HighCard{
     }
 
     @Override
-    public void formatReason(int compareResult, RankType rankType, List<Value> blackValues,
+    public void formatReason(int compareResult, RankType blackRankType, RankType whiteRankType,
+                             List<Value> blackValues,
                              List<Value> whiteValues, int idx) {
-        reason = new FullHouseMessageFormatter(compareResult,
-                this.getRankType(), blackValues, whiteValues).format();
+        reason = new FullHouseMessageFormatter(compareResult,blackRankType,
+                whiteRankType, blackValues, whiteValues).format();
     }
 }

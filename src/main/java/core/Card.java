@@ -39,4 +39,8 @@ public class Card implements Comparable<Card>{
     public String getValueSuit(){
         return value.getSymbol()+""+suit.getSymbol();
     }
+
+    public String toString(){
+        return getValueSuit();
+    }
 }

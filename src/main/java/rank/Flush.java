@@ -17,20 +17,20 @@ public class Flush extends HighCard{
     public int compareTo(Rank other) {
         int result = this.getRankType().compareTo(other.getRankType());
         if (result == 0) { // if both are same rankType, need to compare by higher card
-            result = compareTo(this.getRankType(), this.getValuesToCompare(),
+            result = compareTo(this.getRankType(), other.getRankType(), this.getValuesToCompare(),
                     other.getValuesToCompare());
         } else{ // else compare by rankType
             reason = new MessageFormatter(result,
-                    this.getRankType(), this.getValuesToCompare(),
+                    this.getRankType(), other.getRankType(), this.getValuesToCompare(),
                     other.getValuesToCompare(), 0).format();
         }
         return result;
     }
 
     @Override
-    public void formatReason(int compareResult, RankType rankType, List<Value> blackValues,
-                             List<Value> whiteValues, int idx) {
+    public void formatReason(int compareResult, RankType blackRankType, RankType whiteRankType,
+                             List<Value> blackValues, List<Value> whiteValues, int idx) {
         reason = new FlushMessageFormatter(compareResult,
-                this.getRankType(), blackValues, whiteValues, idx).format();
+                blackRankType, whiteRankType, blackValues, whiteValues, idx).format();
     }
 }

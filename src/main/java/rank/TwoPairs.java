@@ -13,9 +13,9 @@ public class TwoPairs extends Pair{
     }
 
     @Override
-    public void formatReason(int compareResult, RankType rankType, List<Value> blackValues,
-                             List<Value> whiteValues, int idx) {
+    public void formatReason(int compareResult, RankType blackRankType, RankType whiteRankType,
+                             List<Value> blackValues, List<Value> whiteValues, int idx) {
         reason = new TwoPairsMessageFormatter(compareResult,
-                this.getRankType(), blackValues, whiteValues, idx).format();
+                blackRankType, whiteRankType, blackValues, whiteValues, idx).format();
     }
 }

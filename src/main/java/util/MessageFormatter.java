@@ -20,12 +20,13 @@ public class MessageFormatter {
     protected String whoWin;
     protected List<Value> whoseValues;
 
+    protected RankType whoseRankType;
+
     protected String message;
 
-    public MessageFormatter(int compare, RankType rankType, List<Value> blackValues,
+    public MessageFormatter(int compare, RankType blackRankType, RankType whiteRankType, List<Value> blackValues,
                             List<Value> whiteValues, int ptr) {
         this.compare = compare;
-        this.rankType = rankType;
         this.blackValues = blackValues;
         this.whiteValues = whiteValues;
         this.ptr = ptr;
@@ -33,9 +34,11 @@ public class MessageFormatter {
         if (this.compare > 0) {
             whoWin = BLACK;
             whoseValues = blackValues;
+            whoseRankType = blackRankType;
         } else {
             whoWin = WHITE;
             whoseValues = whiteValues;
+            whoseRankType = whiteRankType;
         }
     }
 
@@ -44,7 +47,7 @@ public class MessageFormatter {
             return TIE;
         }else {
             return MessageFormat.format(message,
-                    whoWin, this.rankType.getName(), whoseValues.get(ptr));
+                    whoWin, whoseRankType.getName(), whoseValues.get(ptr));
         }
     }
 }
