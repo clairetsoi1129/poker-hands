@@ -35,4 +35,8 @@ public class Card implements Comparable<Card>{
     public int compareTo(Card card) {
         return this.value.compareTo(card.value);
     }
+
+    public String getValueSuit(){
+        return value.getSymbol()+""+suit.getSymbol();
+    }
 }

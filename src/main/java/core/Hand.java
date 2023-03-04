@@ -2,8 +2,10 @@ package core;
 
 import criteria.*;
 import rank.Rank;
+import util.InvalidCardException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Hand implements Comparable<Hand> {
     private final List<Card> cards;
@@ -11,6 +13,7 @@ public class Hand implements Comparable<Hand> {
 
     public Hand(List<Card> cards) {
         this.cards = cards;
+        checkDuplicate();
         evaluateRank();
     }
 
@@ -20,7 +23,23 @@ public class Hand implements Comparable<Hand> {
         for (String s : playerCardsArr) {
             this.cards.add(new Card(s));
         }
+        checkDuplicate();
         evaluateRank();
+    }
+
+    public void checkDuplicate(){
+        List<String> duplicates =
+                cards.stream().collect(
+                                Collectors.groupingBy(
+                                        Card::getValueSuit, Collectors.counting()
+                                )
+                        ).entrySet()
+                        .stream()
+                        .filter(e -> e.getValue() > 1)
+                        .map(Map.Entry::getKey).toList();
+        if (duplicates.size() > 0)
+            throw new InvalidCardException("Invalid card. Each card can only used once at a time.");
+
     }
 
     public void evaluateRank() {

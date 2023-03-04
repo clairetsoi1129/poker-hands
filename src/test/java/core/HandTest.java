@@ -184,4 +184,14 @@ public class HandTest {
         String actualMessage = exception.getMessage();
         assertEquals(actualMessage,"Invalid Card. Missing suit or values.");
     }
+
+    @Test
+    void testInvalidLine_repeat() {
+        Exception exception = assertThrows(InvalidCardException.class, () -> {
+            Hand handBlack = new Hand("AC AC 3D 4H 5S");
+        });
+
+        String actualMessage = exception.getMessage();
+        assertEquals(actualMessage,"Invalid card. Each card can only used once at a time.");
+    }
 }
