@@ -29,14 +29,14 @@ public class Hand implements Comparable<Hand> {
         Criteria flushCrit = new FlushCriteria(cards);
 
         List<Criteria> criterias = new LinkedList<>();
+        criterias.add(new StraightFlushCriteria(cards, straightCrit, flushCrit));
         criterias.add(new FourOfAKindCriteria(cards));
         criterias.add(new FullHouseCriteria(cards, threeOfAKindCriteria, pairCriteria));
+        criterias.add(flushCrit);
+        criterias.add(straightCrit);
         criterias.add(threeOfAKindCriteria);
         criterias.add(new TwoPairsCriteria(cards));
         criterias.add(pairCriteria);
-        criterias.add(new StraightFlushCriteria(cards, straightCrit, flushCrit));
-        criterias.add(straightCrit);
-        criterias.add(flushCrit);
         criterias.add(new HighCardCriteria(cards));
 
         for (Criteria criteria: criterias){
