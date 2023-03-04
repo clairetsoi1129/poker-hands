@@ -15,13 +15,13 @@ public class FullHouseCriteria extends Criteria{
     }
 
     @Override
-    public HighCard meetCriteria() {
-        HighCard highCard = null;
+    public Rank meetCriteria() {
+        Rank rank = null;
 
         if (threeOfAKindCriteria.meetCriteria() != null && pairCriteria.meetCriteria() != null) {
-            highCard = new FullHouse(valuesToCompare);
+            rank = new FullHouse(valuesToCompare);
         }
 
-        return highCard;
+        return rank;
     }
 }

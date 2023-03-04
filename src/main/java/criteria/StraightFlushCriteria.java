@@ -15,13 +15,13 @@ public class StraightFlushCriteria extends Criteria{
     }
 
     @Override
-    public HighCard meetCriteria() {
-        HighCard highCard = null;
+    public Rank meetCriteria() {
+        Rank rank = null;
 
         if (straightCriteria.meetCriteria() != null && flushCriteria.meetCriteria() != null) {
-            highCard = new StraightFlush(valuesToCompare);
+            rank = new StraightFlush(valuesToCompare);
         }
 
-        return highCard;
+        return rank;
     }
 }

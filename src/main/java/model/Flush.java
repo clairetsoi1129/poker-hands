@@ -4,16 +4,16 @@ import util.FlushMessageFormatter;
 
 import java.util.List;
 
-public class Flush extends HighCard{
+public class Flush extends HighCard implements Comparable<Rank>{
     public Flush(List<Value> valuesToCompare) {
         super(valuesToCompare);
-        rank = Rank.Flush;
+        rankType = RankType.Flush;
     }
 
     @Override
-    public void formatReason(int compareResult, Rank rank, List<Value> blackValues,
+    public void formatReason(int compareResult, RankType rankType, List<Value> blackValues,
                              List<Value> whiteValues, int idx) {
         reason = new FlushMessageFormatter(compareResult,
-                this.getRank(), blackValues, whiteValues, idx).format();
+                this.getRankType(), blackValues, whiteValues, idx).format();
     }
 }

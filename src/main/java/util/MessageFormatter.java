@@ -1,6 +1,6 @@
 package util;
 
-import model.Rank;
+import model.RankType;
 import model.Value;
 
 import java.text.MessageFormat;
@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MessageFormatter {
     protected int compare;
-    protected Rank rank;
+    protected RankType rankType;
     protected List<Value> blackValues;
     protected List<Value> whiteValues;
     protected int ptr;
@@ -22,10 +22,10 @@ public class MessageFormatter {
 
     protected String message;
 
-    public MessageFormatter(int compare, Rank rank, List<Value> blackValues,
+    public MessageFormatter(int compare, RankType rankType, List<Value> blackValues,
                             List<Value> whiteValues, int ptr) {
         this.compare = compare;
-        this.rank = rank;
+        this.rankType = rankType;
         this.blackValues = blackValues;
         this.whiteValues = whiteValues;
         this.ptr = ptr;
@@ -44,7 +44,7 @@ public class MessageFormatter {
             return TIE;
         }else {
             return MessageFormat.format(message,
-                    whoWin, this.rank.getName(), whoseValues.get(ptr));
+                    whoWin, this.rankType.getName(), whoseValues.get(ptr));
         }
     }
 }

@@ -1,9 +1,6 @@
 package criteria;
 
-import model.Card;
-import model.HighCard;
-import model.TwoPairs;
-import model.Value;
+import model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -14,14 +11,14 @@ public class TwoPairsCriteria extends Criteria{
     }
 
     @Override
-    public HighCard meetCriteria() {
-        HighCard highCard = null;
+    public Rank meetCriteria() {
+        Rank rank = null;
         for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
             if (s.getValue() == 2 && sortedGroupByValueMap.entrySet().size() == 3) {  // 2 pairs
-                highCard = new TwoPairs(valuesToCompare);
+                rank = new TwoPairs(valuesToCompare);
                 break;
             }
         }
-        return highCard;
+        return rank;
     }
 }

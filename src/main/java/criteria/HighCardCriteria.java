@@ -2,6 +2,7 @@ package criteria;
 
 import model.Card;
 import model.HighCard;
+import model.Rank;
 
 import java.util.List;
 
@@ -11,7 +12,7 @@ public class HighCardCriteria extends Criteria{
     }
 
     @Override
-    public HighCard meetCriteria() {
+    public Rank meetCriteria() {
         return new HighCard(valuesToCompare);
     }
 }

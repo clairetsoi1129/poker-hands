@@ -14,12 +14,12 @@ public class FlushCriteria extends Criteria{
     }
 
     @Override
-    public HighCard meetCriteria() {
-        HighCard highCard = null;
+    public Rank meetCriteria() {
+        Rank rank = null;
         if (isSingleSuit()) {
-            highCard = new Flush(valuesToCompare);
+            rank = new Flush(valuesToCompare);
         }
-        return highCard;
+        return rank;
     }
 
     protected boolean isSingleSuit() {

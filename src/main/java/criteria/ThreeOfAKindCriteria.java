@@ -1,9 +1,6 @@
 package criteria;
 
-import model.Card;
-import model.ThreeOfAKind;
-import model.HighCard;
-import model.Value;
+import model.*;
 
 import java.util.List;
 import java.util.Map;
@@ -14,14 +11,14 @@ public class ThreeOfAKindCriteria extends Criteria{
     }
 
     @Override
-    public HighCard meetCriteria() {
-        HighCard highCard = null;
+    public Rank meetCriteria() {
+        Rank rank = null;
         for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
             if (s.getValue() == 3) { // 3 of a kind
-                highCard = new ThreeOfAKind( valuesToCompare);
+                rank = new ThreeOfAKind( valuesToCompare);
                 break;
             }
         }
-        return highCard;
+        return rank;
     }
 }

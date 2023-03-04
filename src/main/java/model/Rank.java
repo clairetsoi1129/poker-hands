@@ -1,24 +1,16 @@
 package model;
 
-public enum Rank {
-    HighCard("high card"),
-    Pair("pair"),
-    TwoPairs("two pairs"),
-    ThreeOfAKind("three of a kind"),
-    Straight("straight"),
-    Flush("flush"),
-    FullHouse("full house"),
-    FourOfAKind("four of a kind"),
-    StraightFlush("straight flush");
+import java.util.List;
 
-    private final String name;
+public abstract class Rank implements Comparable<Rank>{
+    public abstract int compareTo(RankType rankType, List<Value> blackValues, List<Value> whiteValues);
+    public abstract void formatReason(int compareResult, RankType rankType,
+                             List<Value> blackValues, List<Value> whiteValues, int idx);
+    public abstract RankType getRankType();
 
-    Rank(String name)
-    {
-        this.name = name;
-    }
+    public abstract List<Value> getValuesToCompare();
 
-    public String getName() {
-        return name;
-    }
+    public abstract String getReason();
+
+    public abstract int compareTo(Rank other);
 }

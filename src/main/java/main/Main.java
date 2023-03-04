@@ -15,6 +15,6 @@ public class Main {
         Hand handBlack = new Hand(blackSide);
         Hand handWhite = new Hand(whiteSide);
         handBlack.compareTo(handWhite);
-        System.out.println(handBlack.getHighCard().getReason());
+        System.out.println(handBlack.getRank().getReason());
     }
 }

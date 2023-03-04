@@ -2,9 +2,9 @@ package model;
 
 import java.util.List;
 
-public class FourOfAKind extends HighCard{
+public class FourOfAKind extends HighCard implements Comparable<Rank>{
     public FourOfAKind(List<Value> valuesToCompare) {
         super(valuesToCompare);
-        rank = Rank.FourOfAKind;
+        rankType = RankType.FourOfAKind;
     }
 }

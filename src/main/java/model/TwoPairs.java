@@ -4,16 +4,16 @@ import util.TwoPairsMessageFormatter;
 
 import java.util.List;
 
-public class TwoPairs extends HighCard{
+public class TwoPairs extends HighCard implements Comparable<Rank>{
     public TwoPairs(List<Value> valuesToCompare) {
         super(valuesToCompare);
-        rank = Rank.TwoPairs;
+        rankType = RankType.TwoPairs;
     }
 
     @Override
-    public void formatReason(int compareResult, Rank rank, List<Value> blackValues,
+    public void formatReason(int compareResult, RankType rankType, List<Value> blackValues,
                              List<Value> whiteValues, int idx) {
         reason = new TwoPairsMessageFormatter(compareResult,
-                this.getRank(), blackValues, whiteValues, idx).format();
+                this.getRankType(), blackValues, whiteValues, idx).format();
     }
 }

@@ -6,7 +6,7 @@ import java.util.*;
 
 public class Hand implements Comparable<Hand> {
     private final List<Card> cards;
-    private HighCard highCard;
+    private Rank rank;
 
     public Hand(List<Card> cards) {
         this.cards = cards;
@@ -40,18 +40,18 @@ public class Hand implements Comparable<Hand> {
         criterias.add(new HighCardCriteria(cards));
 
         for (Criteria criteria: criterias){
-            highCard = criteria.meetCriteria();
-            if (highCard != null)
+            rank = criteria.meetCriteria();
+            if (rank != null)
                 break;
         }
     }
 
     @Override
     public int compareTo(Hand otherHand) {
-        return highCard.compareTo(otherHand.getHighCard());
+        return rank.compareTo(otherHand.getRank());
     }
 
-    public HighCard getHighCard() {
-        return highCard;
+    public Rank getRank() {
+        return rank;
     }
 }

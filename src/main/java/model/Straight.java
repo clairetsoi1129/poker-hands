@@ -2,9 +2,9 @@ package model;
 
 import java.util.List;
 
-public class Straight extends HighCard{
+public class Straight extends HighCard implements Comparable<Rank>{
     public Straight(List<Value> valuesToCompare) {
         super(valuesToCompare);
-        rank = Rank.Straight;
+        rankType = RankType.Straight;
     }
 }
