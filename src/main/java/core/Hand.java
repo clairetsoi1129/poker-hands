@@ -55,4 +55,8 @@ public class Hand implements Comparable<Hand> {
     public Rank getRank() {
         return rank;
     }
+
+    public List<Card> getCards() {
+        return cards;
+    }
 }
