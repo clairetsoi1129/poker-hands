@@ -1,8 +1,8 @@
 package criteria;
 
-import model.Card;
-import model.Rank;
-import model.Value;
+import core.Card;
+import rank.Rank;
+import core.Value;
 
 import java.util.*;
 import java.util.stream.Collectors;

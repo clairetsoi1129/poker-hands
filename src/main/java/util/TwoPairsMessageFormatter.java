@@ -1,7 +1,7 @@
 package util;
 
-import model.RankType;
-import model.Value;
+import core.RankType;
+import core.Value;
 
 import java.util.List;
 

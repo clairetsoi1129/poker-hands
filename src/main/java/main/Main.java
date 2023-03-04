@@ -1,6 +1,6 @@
 package main;
 
-import model.Hand;
+import core.Hand;
 
 import java.util.Scanner;
 

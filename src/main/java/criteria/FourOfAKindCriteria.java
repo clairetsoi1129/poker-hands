@@ -1,6 +1,8 @@
 package criteria;
 
-import model.*;
+import core.Card;
+import core.Value;
+import rank.*;
 
 import java.util.List;
 import java.util.Map;

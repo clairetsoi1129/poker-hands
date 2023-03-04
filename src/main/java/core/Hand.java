@@ -1,6 +1,7 @@
-package model;
+package core;
 
 import criteria.*;
+import rank.Rank;
 
 import java.util.*;
 

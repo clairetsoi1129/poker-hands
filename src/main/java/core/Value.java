@@ -1,4 +1,4 @@
-package model;
+package core;
 
 public enum Value {
     DEDUCE('2'),

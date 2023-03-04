@@ -1,8 +1,7 @@
+package core;
+
 import static org.junit.jupiter.api.Assertions.*;
 
-import model.Card;
-import model.Suit;
-import model.Value;
 import org.junit.jupiter.api.Test;
 
 public class CardTest {

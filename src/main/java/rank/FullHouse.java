@@ -1,5 +1,7 @@
-package model;
+package rank;
 
+import core.RankType;
+import core.Value;
 import util.FullHouseMessageFormatter;
 
 import java.util.List;

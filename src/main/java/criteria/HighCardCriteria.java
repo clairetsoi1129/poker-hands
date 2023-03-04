@@ -1,8 +1,8 @@
 package criteria;
 
-import model.Card;
-import model.HighCard;
-import model.Rank;
+import core.Card;
+import rank.HighCard;
+import rank.Rank;
 
 import java.util.List;
 

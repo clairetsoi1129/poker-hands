@@ -1,4 +1,4 @@
-package model;
+package core;
 
 public class Card implements Comparable<Card>{
     private final Suit suit;

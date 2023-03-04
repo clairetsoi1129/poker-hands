@@ -1,4 +1,7 @@
-package model;
+package rank;
+
+import core.RankType;
+import core.Value;
 
 import java.util.List;
 

@@ -1,19 +1,21 @@
-package model;
+package rank;
 
-import util.FlushMessageFormatter;
+import core.RankType;
+import core.Value;
+import util.PairMessageFormatter;
 
 import java.util.List;
 
-public class Flush extends HighCard{
-    public Flush(List<Value> valuesToCompare) {
+public class Pair extends HighCard{
+    public Pair(List<Value> valuesToCompare) {
         super(valuesToCompare);
-        rankType = RankType.Flush;
+        rankType = RankType.Pair;
     }
 
     @Override
     public void formatReason(int compareResult, RankType rankType, List<Value> blackValues,
                              List<Value> whiteValues, int idx) {
-        reason = new FlushMessageFormatter(compareResult,
+        reason = new PairMessageFormatter(compareResult,
                 this.getRankType(), blackValues, whiteValues, idx).format();
     }
 }
