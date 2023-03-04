@@ -4,12 +4,13 @@ import core.Card;
 import core.Value;
 import rank.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class ThreeOfAKindCriteria extends Criteria{
-    public ThreeOfAKindCriteria(List<Card> cards) {
-        super(cards);
+    public ThreeOfAKindCriteria(List<Card> cards, HashMap<Value, Long> sortedGroupByValueMap) {
+        super(cards, sortedGroupByValueMap);
     }
 
     @Override

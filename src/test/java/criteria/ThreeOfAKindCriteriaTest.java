@@ -12,7 +12,7 @@ public class ThreeOfAKindCriteriaTest {
     @Test
     void testHasThreeOfAKind() {
         Hand handBlack = new Hand("2H 2C 2S 3D 4H");
-        Criteria criteria = new ThreeOfAKindCriteria(handBlack.getCards());
+        Criteria criteria = new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue());
         Rank rank = criteria.meetCriteria();
         assertEquals(RankType.ThreeOfAKind, rank.getRankType());
     }
@@ -20,7 +20,7 @@ public class ThreeOfAKindCriteriaTest {
     @Test
     void testNoThreeOfAKind() {
         Hand handBlack = new Hand("5C 3H 7H JS TD");
-        Criteria criteria = new ThreeOfAKindCriteria(handBlack.getCards());
+        Criteria criteria = new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue());
         Rank rank = criteria.meetCriteria();
         assertNull(rank);
     }

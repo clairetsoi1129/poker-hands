@@ -12,7 +12,7 @@ public class PairCriteriaTest {
     @Test
     void testHasPair() {
         Hand handBlack = new Hand("KH 8C 2S AD 8H");
-        Criteria criteria = new PairCriteria(handBlack.getCards());
+        Criteria criteria = new PairCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue());
         Rank rank = criteria.meetCriteria();
         assertEquals(RankType.Pair, rank.getRankType());
     }
@@ -20,7 +20,7 @@ public class PairCriteriaTest {
     @Test
     void testNoPair() {
         Hand handBlack = new Hand("5C 3H 7H JS TD");
-        Criteria criteria = new PairCriteria(handBlack.getCards());
+        Criteria criteria = new PairCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue());
         Rank rank = criteria.meetCriteria();
         assertNull(rank);
     }

@@ -14,8 +14,8 @@ public class HighCardTest {
         Hand handBlack = new Hand("AD QH 9H 8C 2S");
         Hand handWhite = new Hand("KD QH 9H 8C 2S");
 
-        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
-        Rank rankWhite = new HighCardCriteria(handWhite.getCards()).meetCriteria();
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with high card: A", rankBlack.getReason());
     }
@@ -24,8 +24,8 @@ public class HighCardTest {
         Hand handBlack = new Hand("AD KH 9H 8C 2S");
         Hand handWhite = new Hand("AD QH 9H 8C 2S");
 
-        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
-        Rank rankWhite = new HighCardCriteria(handWhite.getCards()).meetCriteria();
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with high card: K", rankBlack.getReason());
     }
@@ -35,8 +35,8 @@ public class HighCardTest {
         Hand handBlack = new Hand("AD KH TH 8C 2S");
         Hand handWhite = new Hand("AD KH 9H 8C 2S");
 
-        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
-        Rank rankWhite = new HighCardCriteria(handWhite.getCards()).meetCriteria();
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with high card: T", rankBlack.getReason());
     }
@@ -46,8 +46,8 @@ public class HighCardTest {
         Hand handBlack = new Hand("AD KH 9H 8C 2S");
         Hand handWhite = new Hand("AD KH 9H 7C 2S");
 
-        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
-        Rank rankWhite = new HighCardCriteria(handWhite.getCards()).meetCriteria();
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with high card: 8", rankBlack.getReason());
     }
@@ -57,8 +57,8 @@ public class HighCardTest {
         Hand handBlack = new Hand("AD KH 9H 8C 3S");
         Hand handWhite = new Hand("AD KH 9H 8C 2S");
 
-        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
-        Rank rankWhite = new HighCardCriteria(handWhite.getCards()).meetCriteria();
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with high card: 3", rankBlack.getReason());
     }
@@ -68,8 +68,8 @@ public class HighCardTest {
         Hand handBlack = new Hand("AD KH 9H 8C 2S");
         Hand handWhite = new Hand("AD KH 9H 8C 2S");
 
-        Rank rankBlack = new HighCardCriteria(handBlack.getCards()).meetCriteria();
-        Rank rankWhite = new HighCardCriteria(handWhite.getCards()).meetCriteria();
+        Rank rankBlack = new HighCardCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertEquals(0, rankBlack.compareTo(rankWhite));
         assertEquals("Tie.", rankBlack.getReason());
     }

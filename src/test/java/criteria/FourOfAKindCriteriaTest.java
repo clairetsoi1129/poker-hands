@@ -11,7 +11,7 @@ public class FourOfAKindCriteriaTest {
     @Test
     void testHasFourOfAKind() {
         Hand handBlack = new Hand("2H 2C 2S 2D 4H");
-        Criteria criteria = new FourOfAKindCriteria(handBlack.getCards());
+        Criteria criteria = new FourOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue());
         Rank rank = criteria.meetCriteria();
         assertEquals(RankType.FourOfAKind, rank.getRankType());
     }
@@ -19,7 +19,7 @@ public class FourOfAKindCriteriaTest {
     @Test
     void testNoFourOfAKind() {
         Hand handBlack = new Hand("2H 5H 3H 6H 4H");
-        Criteria criteria = new FourOfAKindCriteria(handBlack.getCards());
+        Criteria criteria = new FourOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue());
         Rank rank = criteria.meetCriteria();
         assertNull(rank);
     }

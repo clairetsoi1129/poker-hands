@@ -4,12 +4,13 @@ import core.Card;
 import core.Value;
 import rank.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class PairCriteria extends Criteria{
-    public PairCriteria(List<Card> cards) {
-        super(cards);
+    public PairCriteria(List<Card> cards, HashMap<Value, Long> sortedGroupByValueMap) {
+        super(cards, sortedGroupByValueMap);
     }
 
     @Override

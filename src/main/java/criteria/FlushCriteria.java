@@ -2,8 +2,10 @@ package criteria;
 
 import core.Card;
 import core.Suit;
+import core.Value;
 import rank.*;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,8 +13,8 @@ import java.util.stream.Collectors;
 
 public class FlushCriteria extends Criteria{
     protected Map<Suit, Long> groupBySuitMap;
-    public FlushCriteria(List<Card> cards) {
-        super(cards);
+    public FlushCriteria(List<Card> cards, HashMap<Value, Long> sortedGroupByValueMap) {
+        super(cards, sortedGroupByValueMap);
     }
 
     @Override
