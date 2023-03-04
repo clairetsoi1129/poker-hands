@@ -3,10 +3,12 @@ package core;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;
+import util.InvalidCardException;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class HandTest {
     private List<Card> cardBlack;
@@ -151,5 +153,35 @@ public class HandTest {
         Hand handWhite = new Hand(player2CardsStr);
         handBlack.compareTo(handWhite);
         assertEquals(expectedReason, handBlack.getRank().getReason());
+    }
+
+    @Test
+    void testInvalidSuit() {
+        Exception exception = assertThrows(InvalidCardException.class, () -> {
+            Hand handBlack = new Hand("1M 2M 3M 4M 5M");
+        });
+
+        String actualMessage = exception.getMessage();
+        assertEquals(actualMessage,"Invalid suit. Please input C/D/H/S.");
+    }
+
+    @Test
+    void testInvalidValue() {
+        Exception exception = assertThrows(InvalidCardException.class, () -> {
+            Hand handBlack = new Hand("1H 2C 3D 4V 5S");
+        });
+
+        String actualMessage = exception.getMessage();
+        assertEquals(actualMessage,"Invalid value. Please input 2/3/4/5/6/7/8/9/T/J/Q/K/A.");
+    }
+
+    @Test
+    void testInvalidLine_MissingSuit() {
+        Exception exception = assertThrows(InvalidCardException.class, () -> {
+            Hand handBlack = new Hand("1 2C 3D 4V 5S");
+        });
+
+        String actualMessage = exception.getMessage();
+        assertEquals(actualMessage,"Invalid Card. Missing suit or values.");
     }
 }
