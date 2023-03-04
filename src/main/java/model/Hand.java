@@ -25,15 +25,15 @@ public class Hand implements Comparable<Hand> {
     public void evaluateRank() {
         Criteria pairCriteria = new PairCriteria(cards);
         Criteria threeOfAKindCriteria = new ThreeOfAKindCriteria(cards);
-        Criteria straightCrit = new StraightCriteria(cards);
-        Criteria flushCrit = new FlushCriteria(cards);
+        Criteria straightCriteria = new StraightCriteria(cards);
+        Criteria flushCriteria = new FlushCriteria(cards);
 
         List<Criteria> criterias = new LinkedList<>();
-        criterias.add(new StraightFlushCriteria(cards, straightCrit, flushCrit));
+        criterias.add(new StraightFlushCriteria(cards, straightCriteria, flushCriteria));
         criterias.add(new FourOfAKindCriteria(cards));
         criterias.add(new FullHouseCriteria(cards, threeOfAKindCriteria, pairCriteria));
-        criterias.add(flushCrit);
-        criterias.add(straightCrit);
+        criterias.add(flushCriteria);
+        criterias.add(straightCriteria);
         criterias.add(threeOfAKindCriteria);
         criterias.add(new TwoPairsCriteria(cards));
         criterias.add(pairCriteria);
