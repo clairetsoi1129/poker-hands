@@ -6,7 +6,7 @@ import util.TwoPairsMessageFormatter;
 
 import java.util.List;
 
-public class TwoPairs extends HighCard{
+public class TwoPairs extends Pair{
     public TwoPairs(List<Value> valuesToCompare) {
         super(valuesToCompare);
         rankType = RankType.TwoPairs;
