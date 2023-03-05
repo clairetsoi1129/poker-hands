@@ -1,5 +1,7 @@
 package core;
 
+import java.util.stream.Stream;
+
 public enum Suit {
     CLUBS('C'),
     DIAMONDS('D'),
@@ -20,9 +22,9 @@ public enum Suit {
 
     public static Suit getSuitForSymbol(final char symbol)
     {
-        for (Suit suit : Suit.values())
-            if (suit.symbol == symbol)
-                return suit;
-        return null;
+        return Stream.of(Suit.values())
+                .filter(s->s.symbol == symbol)
+                .toList()
+                .stream().findFirst().orElse(null);
     }
 }

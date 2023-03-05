@@ -20,6 +20,7 @@ public class Hand implements Comparable<Hand> {
     public Hand(String playerCards) {
         String[] playerCardsArr = playerCards.split(" ");
 
+        // create the cards list by playerCardsArr String array
         this.cards = Arrays.stream(playerCardsArr)
                 .map(Card::new)
                 .collect(Collectors.toList());
@@ -56,7 +57,6 @@ public class Hand implements Comparable<Hand> {
         criterias.add(flushCriteria);
         criterias.add(straightCriteria);
         criterias.add(threeOfAKindCriteria);
-//        criterias.add(new TwoPairsCriteria(cards, sortedGroupByValueMap));
         criterias.add(pairCriteria);
         criterias.add(new HighCardCriteria(cards, sortedGroupByValueMap));
 

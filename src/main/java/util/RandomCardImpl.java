@@ -51,14 +51,7 @@ public class RandomCardImpl implements RandomCard{
     }
 
     private boolean hasConflict(Card card){
-        boolean hasConflict = false;
-        for (Card distributedCard : distributedCards) {
-            if (card.getValue().equals(distributedCard.getValue())
-            && card.getSuit().equals(distributedCard.getSuit()) ) {
-                hasConflict = true;
-                break;
-            }
-        }
-        return hasConflict;
+        return distributedCards.stream()
+                .anyMatch(dc -> card.getValue().equals(dc.getValue()) && card.getSuit().equals(dc.getSuit()));
     }
 }

@@ -1,5 +1,7 @@
 package core;
 
+import java.util.stream.Stream;
+
 public enum Value {
     DEDUCE('2'),
     THREE('3'),
@@ -51,9 +53,9 @@ public enum Value {
 
     public static Value getValueForSymbol(final char symbol)
     {
-        for (Value value : Value.values())
-            if (value.symbol == symbol)
-                return value;
-        return null;
+        return Stream.of(Value.values())
+                .filter(s->s.symbol == symbol)
+                .toList()
+                .stream().findFirst().orElse(null);
     }
 }
