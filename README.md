@@ -13,7 +13,7 @@ Java 17
 ![class diagram](poker-hands-new.drawio.png)
 
 ## Key Notes
-1. Used Criteria design pattern for deciding which catergory the hands of cards belong to.
+1. Used Criteria design pattern for deciding which Rank the hands of cards belong to.
 2. Used SOLID Principle to avoid a list of if else
    * Single Responsibility breaks down the bulky Hand class to a list of Rank classes, Criteria classes and MessageFormatter class which have their own responsibilties
    * Open-Closed as the classes are broken down into smaller classes. They are closed for modification. But allow extension of other Rank type and different message format display.
@@ -35,7 +35,7 @@ Java 17
             break;
     }
     ```
-3. Used stream in toString method in Hand class to convert the cards list to a string.
+3. Used stream map and collect in toString method in Hand class for converting the cards list to a string.
 ```java
 public String toString() {
    return cards.stream()
@@ -43,7 +43,7 @@ public String toString() {
    .collect(Collectors.joining(" ", "{", "}"));
    }
 ```
-4. Used stream in grouping the cards by cards Value (2,3,4...K, A) as key in a map with their count in map value.
+4. Used stream groupingBy for grouping the cards by count. Cards Value (2,3,4...K, A) is the key in the result map with their count as map value.
 ```java
     Map<Value, Long> groupByValueMap =
         cards.stream().collect(
@@ -52,7 +52,7 @@ public String toString() {
             )
         );
 ```
-5. Used stream & lambda in sorting the map in 4 by the count.
+5. Used stream & lambda for sorting the map in pt 4 by the count.
 ```java
     HashMap<Value, Long> sortedGroupByValueMap = new LinkedHashMap<>();
 
@@ -63,7 +63,7 @@ public String toString() {
     sortedGroupByValueMap.put(e.getKey(), e.getValue()));
     return sortedGroupByValueMap;
 ```
-6. Used stream in sorting in StraightCriteria class to sort the cards in list.
+6. Used stream sort and collect for sorting in StraightCriteria class to sort the cards in list.
 ```java
     protected List<Card> sort() {
         return cards.stream()
@@ -72,6 +72,47 @@ public String toString() {
     }
 ```
 
+7. Used stream to filter if the hand of cards matches "Two pairs" or "Pair" rank
+```java
+   public Rank meetCriteria() {
+        List<Map.Entry<Value, Long>> pairList = sortedGroupByValueMap.entrySet()
+        .stream()
+        .filter(s -> s.getValue() == 2).toList();
+
+        return switch (pairList.size()) {
+        case 1 -> new Pair(valuesToCompare);
+        case 2 -> new TwoPairs(valuesToCompare);
+default -> null;
+        };
+        }
+```
+
+8. Used stream map and collect to convert an array of string to Card object list
+```java
+    this.cards = Arrays.stream(playerCardsArr)
+        .map(Card::new)
+        .collect(Collectors.toList());
+```
+
+9. Used stream filter on Enum to return the first matched symbol or else return null
+```java
+    public static Value getValueForSymbol(final char symbol)
+    {
+        return Stream.of(Value.values())
+                .filter(s->s.symbol == symbol)
+                .toList()
+                .stream().findFirst().orElse(null);
+
+    }
+```
+10. Used stream anyMatch to check if the card is already generated before
+```java
+private boolean hasConflict(Card card){
+        return distributedCards.stream()
+                .anyMatch(dc -> card.getValue().equals(dc.getValue()) && card.getSuit().equals(dc.getSuit()));
+    }
+
+```
 ## How to launch
 1. Run the Main class for text UI input 
 2. Run the RandomMain class for program to generate the cards and result 
