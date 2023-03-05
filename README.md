@@ -131,5 +131,4 @@ private boolean hasConflict(Card card){
 11. Add main class
 
 ## Future Thoughts
-1. Eliminate the no. of call of sortedGroupByValueMap
-2. Add GUI
+1. Add GUI
