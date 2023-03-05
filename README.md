@@ -7,8 +7,11 @@ This is a simple program to compare several pairs of poker hands and to indicate
 Java 17
 
 ## UML Diagram
+1. Original Design
+
 ![class diagram](poker-hands.drawio.png)
 
+2. After refactor
 
 ![class diagram](poker-hands-new.drawio.png)
 
