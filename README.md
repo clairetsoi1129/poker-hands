@@ -14,7 +14,27 @@ Java 17
 
 ## Key Notes
 1. Used Criteria design pattern for deciding which catergory the hands of cards belong to.
-2. Used Single Responsibility Principle to avoid a list of if else
+2. Used SOLID Principle to avoid a list of if else
+   * Single Responsibility breaks down the bulky Hand class to a list of Rank classes, Criteria classes and MessageFormatter class which have their own responsibilties
+   * Open-Closed as the classes are broken down into smaller classes. They are closed for modification. But allow extension of other Rank type and different message format display.
+   * Liskov as the derived child classes extending MessageFormatter, Rank and Criteria extend the base class without changing behavior
+   * Interface segregation, interface are separated into smaller interface instead of a single bulky interface.   
+   * Dependency Inversion, the attribute is depend on abstraction, not concretion. 
+   ```java
+    RandomCard random = new RandomCardImpl(); // in RandomMain
+   ```
+       
+    ```java
+    List<Criteria> criterias = new LinkedList<>();
+    criterias.add(new StraightFlushCriteria(cards, sortedGroupByValueMap, straightCriteria, flushCriteria));
+    ...
+
+    for (Criteria criteria : criterias) {
+        rank = criteria.meetCriteria();
+        if (rank != null)
+            break;
+    }
+    ```
 3. Used stream in toString method in Hand class to convert the cards list to a string.
 ```java
 public String toString() {
