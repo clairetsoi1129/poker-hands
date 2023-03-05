@@ -82,7 +82,7 @@ public class Hand implements Comparable<Hand> {
                 .sorted(Map.Entry.<Value, Long>comparingByValue().reversed()) // sort by card value's count desc
                 .forEachOrdered(e ->
                         sortedGroupByValueMap.put(e.getKey(), e.getValue()));
-        System.out.println("sortedGroupByValueMap:" + sortedGroupByValueMap);
+        System.out.println("Group input by value:" + sortedGroupByValueMap);
         return sortedGroupByValueMap;
     }
 
