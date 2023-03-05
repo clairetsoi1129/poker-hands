@@ -19,12 +19,7 @@ public class StraightFlushCriteria extends Criteria{
 
     @Override
     public Rank meetCriteria() {
-        Rank rank = null;
-
-        if (straightCriteria.meetCriteria() != null && flushCriteria.meetCriteria() != null) {
-            rank = new StraightFlush(valuesToCompare);
-        }
-
-        return rank;
+        return (straightCriteria.meetCriteria() != null && flushCriteria.meetCriteria() != null)
+                ? new StraightFlush(valuesToCompare):null;
     }
 }

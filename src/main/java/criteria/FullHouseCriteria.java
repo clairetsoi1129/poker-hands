@@ -20,12 +20,7 @@ public class FullHouseCriteria extends Criteria{
 
     @Override
     public Rank meetCriteria() {
-        Rank rank = null;
-
-        if (threeOfAKindCriteria.meetCriteria() != null && pairCriteria.meetCriteria() != null) {
-            rank = new FullHouse(valuesToCompare);
-        }
-
-        return rank;
+        return (threeOfAKindCriteria.meetCriteria() != null && pairCriteria.meetCriteria() != null)
+                ?new FullHouse(valuesToCompare):null;
     }
 }
