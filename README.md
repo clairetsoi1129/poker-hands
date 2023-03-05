@@ -113,9 +113,22 @@ private boolean hasConflict(Card card){
     }
 
 ```
+
+## How to run unit test
+```
+mvn clean test
+```
+
 ## How to launch
-1. Run the Main class for text UI input 
-2. Run the RandomMain class for program to generate the cards and result 
+There are 2 ways to run the main.
+1. Text UI which ask for user input, program will then ask for user to input 5 cards for black and 5 cards for white. Then it will evaluate the result.
+```
+mvn compile exec:java -Dexec.mainClass="main.Main"
+```
+2. Program randomly generate 5 cards for black and 5 cards for white. Then it will evaluate the result.
+```
+mvn compile exec:java -Dexec.mainClass="main.RandomMain"
+```
 
 ## Approach
 1. Compare 1 card  
