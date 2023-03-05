@@ -4,7 +4,6 @@ import core.Hand;
 import criteria.HighCardCriteria;
 import criteria.PairCriteria;
 import criteria.ThreeOfAKindCriteria;
-import criteria.TwoPairsCriteria;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,7 +38,7 @@ public class ThreeOfAKindTest {
         Hand handWhite = new Hand("KD KH 9H 9C 2S");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
-        Rank rankWhite = new TwoPairsCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with three of a kind: A", rankBlack.getReason());
     }

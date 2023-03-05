@@ -36,7 +36,7 @@ public class StraightTest {
         Hand handWhite = new Hand("KD KC 9H 9C 2S");
 
         Rank rankBlack = new StraightCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
-        Rank rankWhite = new TwoPairsCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with straight: A", rankBlack.getReason());
     }

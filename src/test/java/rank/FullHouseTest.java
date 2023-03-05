@@ -42,7 +42,7 @@ public class FullHouseTest {
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue(),
                 new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()),
                 new PairCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue())).meetCriteria();
-        Rank rankWhite = new TwoPairsCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with full house: A over J", rankBlack.getReason());
     }

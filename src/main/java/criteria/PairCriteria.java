@@ -15,13 +15,14 @@ public class PairCriteria extends Criteria{
 
     @Override
     public Rank meetCriteria() {
-        Rank rank = null;
-        for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
-            if (s.getValue() == 2) { // 1 pair
-                rank = new Pair(valuesToCompare);
-                break;
-            }
-        }
-        return rank;
+        List<Map.Entry<Value, Long>> pairList = sortedGroupByValueMap.entrySet()
+                .stream()
+                .filter(s -> s.getValue() == 2).toList();
+
+        return switch (pairList.size()) {
+            case 1 -> new Pair(valuesToCompare);
+            case 2 -> new TwoPairs(valuesToCompare);
+            default -> null;
+        };
     }
 }

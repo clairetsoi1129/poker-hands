@@ -6,7 +6,6 @@ import rank.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class ThreeOfAKindCriteria extends Criteria{
     public ThreeOfAKindCriteria(List<Card> cards, HashMap<Value, Long> sortedGroupByValueMap) {
@@ -15,13 +14,8 @@ public class ThreeOfAKindCriteria extends Criteria{
 
     @Override
     public Rank meetCriteria() {
-        Rank rank = null;
-        for (Map.Entry<Value, Long> s : sortedGroupByValueMap.entrySet()) {
-            if (s.getValue() == 3) { // 3 of a kind
-                rank = new ThreeOfAKind( valuesToCompare);
-                break;
-            }
-        }
-        return rank;
+        return sortedGroupByValueMap.entrySet()
+                .stream()
+                .filter(s -> s.getValue() == 3).count() == 1 ? new ThreeOfAKind(valuesToCompare): null;
     }
 }

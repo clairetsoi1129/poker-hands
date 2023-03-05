@@ -36,7 +36,7 @@ public class FlushTest {
         Hand handWhite = new Hand("KD KH 9H 9C 2S");
 
         Rank rankBlack = new FlushCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
-        Rank rankWhite = new TwoPairsCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with flush: A", rankBlack.getReason());
     }

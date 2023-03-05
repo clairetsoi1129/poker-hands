@@ -19,10 +19,11 @@ public class Hand implements Comparable<Hand> {
 
     public Hand(String playerCards) {
         String[] playerCardsArr = playerCards.split(" ");
-        this.cards = new ArrayList<>();
-        for (String s : playerCardsArr) {
-            this.cards.add(new Card(s));
-        }
+
+        this.cards = Arrays.stream(playerCardsArr)
+                .map(Card::new)
+                .collect(Collectors.toList());
+
         checkDuplicate();
         evaluateRank();
     }
@@ -55,7 +56,7 @@ public class Hand implements Comparable<Hand> {
         criterias.add(flushCriteria);
         criterias.add(straightCriteria);
         criterias.add(threeOfAKindCriteria);
-        criterias.add(new TwoPairsCriteria(cards, sortedGroupByValueMap));
+//        criterias.add(new TwoPairsCriteria(cards, sortedGroupByValueMap));
         criterias.add(pairCriteria);
         criterias.add(new HighCardCriteria(cards, sortedGroupByValueMap));
 

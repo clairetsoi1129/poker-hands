@@ -42,7 +42,7 @@ public class StraightFlushTest {
         Rank rankBlack = new StraightFlushCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue(),
                 new StraightCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()),
                 new FlushCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue())).meetCriteria();
-        Rank rankWhite = new TwoPairsCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
+        Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
         assertTrue(rankBlack.compareTo(rankWhite) > 0);
         assertEquals("Black wins. - with straight flush: A", rankBlack.getReason());
     }
