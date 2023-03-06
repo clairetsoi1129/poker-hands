@@ -1,5 +1,17 @@
 # Poker Hands
 
+<!-- TOC -->
+* [Poker Hands](#poker-hands)
+  * [Introduction](#introduction)
+  * [Technology](#technology)
+  * [UML Diagram](#uml-diagram)
+  * [Key Notes](#key-notes)
+  * [How to run unit test](#how-to-run-unit-test)
+  * [How to launch](#how-to-launch)
+  * [Approach](#approach)
+  * [Future Thoughts](#future-thoughts)
+<!-- TOC -->
+
 ## Introduction
 This is a simple program to compare several pairs of poker hands and to indicate which, if either, has a higher rankType.
 
@@ -122,7 +134,7 @@ private boolean hasConflict(Card card){
 mvn clean test
 ```
 
-## How to launch
+## How to launch the main program
 There are 2 ways to run the main.
 1. Text UI which ask for user input, program will then ask for user to input 5 cards for black and 5 cards for white. Then it will evaluate the result.
 ```
