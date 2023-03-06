@@ -6,8 +6,9 @@
   * [Technology](#technology)
   * [UML Diagram](#uml-diagram)
   * [Key Notes](#key-notes)
+  * [Area that used stream](#area-that-used-stream)
   * [How to run unit test](#how-to-run-unit-test)
-  * [How to launch](#how-to-launch)
+  * [How to launch the main program](#how-to-launch-the-main-program)
   * [Approach](#approach)
   * [Future Thoughts](#future-thoughts)
 <!-- TOC -->
@@ -50,15 +51,17 @@ Java 17
             break;
     }
     ```
-3. Used stream map and collect in toString method in Hand class for converting the cards list to a string.
+## Area that used stream
+1. 
+Used stream map and collect in toString method in Hand class for converting the cards list to a string.
 ```java
-public String toString() {
-   return cards.stream()
-   .map(String::valueOf)
-   .collect(Collectors.joining(" ", "{", "}"));
-   }
+    public String toString() {
+       return cards.stream()
+       .map(String::valueOf)
+       .collect(Collectors.joining(" ", "{", "}"));
+    }
 ```
-4. Used stream groupingBy for grouping the cards by count. Cards Value (2,3,4...K, A) is the key in the result map with their count as map value.
+2. Used stream groupingBy for grouping the cards by count. Cards Value (2,3,4...K, A) is the key in the result map with their count as map value.
 ```java
     Map<Value, Long> groupByValueMap =
         cards.stream().collect(
@@ -67,18 +70,17 @@ public String toString() {
             )
         );
 ```
-5. Used stream & lambda for sorting the map in pt 4 by the count.
+3. Used stream & lambda for sorting the map in pt 4 by the count.
 ```java
     HashMap<Value, Long> sortedGroupByValueMap = new LinkedHashMap<>();
 
     groupByValueMap.entrySet().stream()
-    .sorted(Map.Entry.<Value, Long>comparingByKey().reversed()) // sort by card's value desc
-    .sorted(Map.Entry.<Value, Long>comparingByValue().reversed()) // sort by card value's count desc
-    .forEachOrdered(e ->
-    sortedGroupByValueMap.put(e.getKey(), e.getValue()));
+        .sorted(Map.Entry.<Value, Long>comparingByKey().reversed()) // sort by card's value desc
+        .sorted(Map.Entry.<Value, Long>comparingByValue().reversed()) // sort by card value's count desc
+        .forEachOrdered(e -> sortedGroupByValueMap.put(e.getKey(), e.getValue()));
     return sortedGroupByValueMap;
 ```
-6. Used stream sort and collect for sorting in StraightCriteria class to sort the cards in list.
+4. Used stream sort and collect for sorting in StraightCriteria class to sort the cards in list.
 ```java
     protected List<Card> sort() {
         return cards.stream()
@@ -86,30 +88,29 @@ public String toString() {
                 .collect(Collectors.toList());
     }
 ```
-
-7. Used stream to filter if the hand of cards matches "Two pairs" or "Pair" rank
+5. Used stream to filter if the hand of cards matches "Two pairs" or "Pair" rank
 ```java
-   public Rank meetCriteria() {
+    public Rank meetCriteria() {
         List<Map.Entry<Value, Long>> pairList = sortedGroupByValueMap.entrySet()
-        .stream()
-        .filter(s -> s.getValue() == 2).toList();
+            .stream()
+            .filter(s -> s.getValue() == 2).toList();
 
         return switch (pairList.size()) {
-        case 1 -> new Pair(valuesToCompare);
-        case 2 -> new TwoPairs(valuesToCompare);
-default -> null;
-        };
-        }
+                case 1 -> new Pair(valuesToCompare);
+                case 2 -> new TwoPairs(valuesToCompare);
+                default -> null;
+            };
+    }
 ```
 
-8. Used stream map and collect to convert an array of string to Card object list
+6. Used stream map and collect to convert an array of string to Card object list
 ```java
     this.cards = Arrays.stream(playerCardsArr)
-        .map(Card::new)
-        .collect(Collectors.toList());
+                    .map(Card::new)
+                    .collect(Collectors.toList());
 ```
 
-9. Used stream filter on Enum to return the first matched symbol or else return null
+7. Used stream filter on Enum to return the first matched symbol or else return null
 ```java
     public static Value getValueForSymbol(final char symbol)
     {
@@ -120,13 +121,12 @@ default -> null;
 
     }
 ```
-10. Used stream anyMatch to check if the card is already generated before
+8. Used stream anyMatch to check if the card is already generated before
 ```java
-private boolean hasConflict(Card card){
+    private boolean hasConflict(Card card){
         return distributedCards.stream()
                 .anyMatch(dc -> card.getValue().equals(dc.getValue()) && card.getSuit().equals(dc.getSuit()));
     }
-
 ```
 
 ## How to run unit test
@@ -157,6 +157,7 @@ mvn compile exec:java -Dexec.mainClass="main.RandomMain"
 9. Add straight flush in comparison
 10. Add handling of string input
 11. Add main class
+
 
 ## Future Thoughts
 1. Add GUI
