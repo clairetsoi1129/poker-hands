@@ -52,8 +52,7 @@ Java 17
     }
     ```
 ## Area that used stream
-1. 
-Used stream map and collect in toString method in Hand class for converting the cards list to a string.
+1. Used stream map and collect in toString method in Hand class for converting the cards list to a string.
 ```java
     public String toString() {
        return cards.stream()
@@ -70,7 +69,7 @@ Used stream map and collect in toString method in Hand class for converting the 
             )
         );
 ```
-3. Used stream & lambda for sorting the map in pt 4 by the count.
+3. Used stream & lambda for sorting the map in pt 2 by the count.
 ```java
     HashMap<Value, Long> sortedGroupByValueMap = new LinkedHashMap<>();
 
