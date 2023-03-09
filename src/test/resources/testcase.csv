@@ -30,5 +30,64 @@ QH KC TS 3D 8H, QC KH 8D TD 2C, Black wins. - with high card: 3, High card vs Hi
 2H 3D 5S 9C KD, 2C 3H 4S 8C AH, White wins. - with high card: A
 2H 4S 4C 2D 4H, 2S 8S AS QS 3S, Black wins. - with full house: 4 over 2
 2H 3D 5S 9C KD, 2C 3H 4S 8C KH, Black wins. - with high card: 9
-2H 3D 5S 9C KD, 2D 3H 5C 9S KH, Tie.
-7H 2D AH 9H KS, JS 3H QC QD 5D, White wins. - with pair: Q
+2H 3D 5S 9C KD, 2D 3H 5C 9S KH, Tie., HighCard vs HighCard no diff
+7H 2D AH 9H KS, JS 3H QC QD 5D, White wins. - with pair: Q, HighCard vs Q pair
+AD QH 9H 8C 2S, KD QS 9S 8S 2C, Black wins. - with high card: A, HighCard vs HighCard 1st card diff
+AD KH 9H 8C 2S, AS QS 9S 8S 2C, Black wins. - with high card: K, HighCard vs HighCard 2nd card diff
+AD KH TH 8C 2S, AS KS 9S 8S 2C, Black wins. - with high card: T, HighCard vs HighCard 3rd card diff
+AD KH 9H 8C 2S, AS KS 9S 7C 2C, Black wins. - with high card: 8, HighCard vs HighCard 4th card diff
+AD KH 9H 8C 3S, AS KS 9S 8S 2C, Black wins. - with high card: 3, HighCard vs HighCard 5th card diff
+AD KH 9H 8C 2S, AS KS 9S 8S 2C, Tie., HighCard vs HighCard no diff
+AD AH 9H 8C 2S, KD QH 9S 8S 2C, Black wins. - with pair: A, Pair vs High Card
+AD AH TH 8C 2S, KD KH 9H 8C 2S, Black wins. - pair with higher pair: A, pair vs pair
+AD AH TH 8C 2S, AS AC 9H 8S 2C, Black wins. - same pair with high card: T, pair vs pair samePair 3rd card diff
+AD AH TH 8C 2S, AS AC TC 8S 2C, Tie., pair vs pair no diff
+AD AH 9H 9C 2S, KD QH 9C 8C 2C, Black wins. - with two pairs: A, Two Pairs vs High Card
+AD AH 9H 9C 2S, KD KH 9C 8C 2C, Black wins. - with two pairs: A, Two Pairs vs Pair
+AD AH TH TC 3S, AC AS TS TD 2S, Black wins. - same two pairs with high card: 3, Two Pairs vs TwoPairs sameTwoPair 5th card diff
+AD AH KH KC 2S, AC AS TH TC 2C, Black wins. - two pairs with higher pair: K, Two Pairs vs Two Pairs same1stPair 2ndPairDiff
+AD AH TH TC 2S, AC AS TS TD 2C, Tie., Two Pairs vs Two Pairs sameTwoPair no diff
+AD AH AS 9C 2S, KD QH 9H 8C 2C, Black wins. - with three of a kind: A, Three Of A Kind vs HighCard
+AD AH AS 9C 2S, KD KH 9H 8C 2C, Black wins. - with three of a kind: A, Three Of A Kind vs Pair
+AD AH AS 9C 2S, KD KH 9H 9S 2C, Black wins. - with three of a kind: A, Three Of A Kind vs TwoPairs
+AD AH AS QC 3S, TD TH TC KC 2S, Black wins. - with three of a kind: A, Three Of A Kind vs Three Of A Kind
+AD KH QH JC TS, KD QH 9H 8C 2S, Black wins. - with straight: A, Straight vs High Card
+AD KH QH JC TS, KD KH 9H 8C 2S, Black wins. - with straight: A, Straight vs Pair
+AD KH QH JC TS, KD KC 9H 9C 2S, Black wins. - with straight: A, Straight vs Two Pairs
+AD KH QH JC TS, TD TH TC KC 2S, Black wins. - with straight: A, Straight vs Three Of A Kind
+AD KH QH JC TS, KD QH JH TC 9S, Black wins. - with straight: A, Straight vs Straight
+AH KH QH JH 9H, KD QH 9H 8C 2S, Black wins. - with flush: A, Flush vs High Card
+AH KH QH JH 9H, KD KC 9C 8C 2S, Black wins. - with flush: A, Flush vs Pair
+AH KH QH JH 9H, KD KC 9H 9C 2S, Black wins. - with flush: A, Flush vs Two Pairs
+AH KH QH JH 9H, TD TH TC KC 2S, Black wins. - with flush: A, Flush vs ThreeOfAKind
+AH KH QH JH 9H, KD QC JC TC 9S, Black wins. - with flush: A, Flush vs Straight
+AH 3H QH JH 9H, KC 3C QC JC 9C, Black wins. - flush with high card: A, Flush vs Flush_1st_diff
+AH 3H QH JH 9H, AC 2C QC JC 9C, Black wins. - flush with high card: 3, Flush vs Flush_2nd_diff
+AH 3H QH JH 9H, AC 3C TC JC 9C, Black wins. - flush with high card: Q, Flush vs Flush_3rd_diff
+AH 3H QH JH 9H, AC 3C QC TC 9C, Black wins. - flush with high card: J, Flush vs Flush_4th_diff
+AH 3H QH JH 9H, AC 3C QC JC 8C, Black wins. - flush with high card: 9, Flush vs Flush_5th_diff
+AH 3H QH JH 9H, AC 3C QC JC 9C, Tie., Flush vs Flush_no_diff
+AH AC AD JH JC, KD QH 9H 8C 2S, Black wins. - with full house: A over J, Full House vs High Card
+AH AC AD JH JC, KD KH 9H 8C 2S, Black wins. - with full house: A over J, Full House vs Pair
+AH AC AD JC JH, KD KH 9H 9C 2S, Black wins. - with full house: A over J, Full House vs Two Pairs
+AH AC AD JC JH, TD TH TS KC 2S, Black wins. - with full house: A over J, Full House vs Three Of A Kind
+AH AC AD JC JH, KD QH JD TC 9S, Black wins. - with full house: A over J, Full House vs Straight
+AH AC AD JH JC, KH 3H QH TH 9H, Black wins. - with full house: A over J, Full House vs Flush
+AH AC AD JC JH, KH KC KD 9C 9H, Black wins. - with full house: A over J, Full House vs Full House
+AH AC AS AD JH, KD QH 9H 8C 2S, Black wins. - with four of a kind: A, Four Of A Kind vs High Card
+AH AC AS AD JH, KD KH 9H 8C 2S, Black wins. - with four of a kind: A, Four Of A Kind vs Pair
+AH AC AS AD JH, KD KH 9H 9C 2S, Black wins. - with four of a kind: A, Four Of A Kind vs Two Pairs
+AH AC AS AD JH, TD TH TC KC 2S, Black wins. - with four of a kind: A, Four Of A Kind vs Three Of A Kind
+AH AC AS AD JH, KD QH JC TC 9S, Black wins. - with four of a kind: A, Four Of A Kind vs Straight
+AH AC AS AD JC, KH 3H QH JH 9H, Black wins. - with four of a kind: A, Four Of A Kind vs Flush
+AH AC AS AD JH, KH KC KS 9D 9H, Black wins. - with four of a kind: A, Four Of A Kind vs FullHouse
+AH AC AS AD JH, KH KC KS KD 9H, Black wins. - with four of a kind: A, Four Of A Kind vs Four Of A Kind
+AC KC TC QC JC, KD QH 9H 8C 2S, Black wins. - with straight flush: A, Straight Flush vs High Card
+AC KC TC QC JC, KD KH 9H 8C 2S, Black wins. - with straight flush: A, Straight Flush vs Pair
+AC KC TC QC JC, KD KH 9H 9C 2S, Black wins. - with straight flush: A, Straight Flush vs TwoPairs
+AC KC TC QC JC, TD TH TS KS 2S, Black wins. - with straight flush: A, Straight Flush vs ThreeOfAKind
+AC KC TC QC JC, KD QH JH TC 9S, Black wins. - with straight flush: A, Straight Flush vs Straight
+AC KC TC QC JC, KH 3H QH JH 9H, Black wins. - with straight flush: A, Straight Flush vs Flush
+AC KC TC QC JC, KH KC KS 9D 9H, Black wins. - with straight flush: A, Straight Flush vs Full House
+AC KC TC QC JC, KH KC KS KD 9H, Black wins. - with straight flush: A, Straight Flush vs Four Of A Kind
+AC KC TC QC JC, 2H 5H 3H 6H 4H, Black wins. - with straight flush: A, Straight Flush vs Straight Flush

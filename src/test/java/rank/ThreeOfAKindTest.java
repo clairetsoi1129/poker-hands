@@ -13,7 +13,7 @@ public class ThreeOfAKindTest {
     @Test
     void testThreeOfAKindvsHighCard() {
         Hand handBlack = new Hand("AD AH AS 9C 2S");
-        Hand handWhite = new Hand("KD QH 9H 8C 2S");
+        Hand handWhite = new Hand("KD QH 9H 8C 2C");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
@@ -24,7 +24,7 @@ public class ThreeOfAKindTest {
     @Test
     void testThreeOfAKindvsPair() {
         Hand handBlack = new Hand("AD AH AS 9C 2S");
-        Hand handWhite = new Hand("KD KH 9H 8C 2S");
+        Hand handWhite = new Hand("KD KH 9H 8C 2C");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
@@ -35,7 +35,7 @@ public class ThreeOfAKindTest {
     @Test
     void testThreeOfAKindvsTwoPairs() {
         Hand handBlack = new Hand("AD AH AS 9C 2S");
-        Hand handWhite = new Hand("KD KH 9H 9C 2S");
+        Hand handWhite = new Hand("KD KH 9H 9S 2C");
 
         Rank rankBlack = new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();

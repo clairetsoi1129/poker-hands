@@ -56,7 +56,7 @@ public class FourOfAKindTest {
     @Test
     void testFourOfAKindvsStraight() {
         Hand handBlack = new Hand("AH AC AS AD JH");
-        Hand handWhite = new Hand("KD QH JH TC 9S");
+        Hand handWhite = new Hand("KD QH JC TC 9S");
 
         Rank rankBlack = new FourOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new StraightCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
@@ -66,7 +66,7 @@ public class FourOfAKindTest {
 
     @Test
     void testFourOfAKindvsFlush() {
-        Hand handBlack = new Hand("AH AC AS AD JH");
+        Hand handBlack = new Hand("AH AC AS AD JC");
         Hand handWhite = new Hand("KH 3H QH JH 9H");
 
         Rank rankBlack = new FourOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();

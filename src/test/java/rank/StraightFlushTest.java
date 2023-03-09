@@ -51,7 +51,7 @@ public class StraightFlushTest {
     @Test
     void testStraightFlushvsThreeOfAKind() {
         Hand handBlack = new Hand("AC KC TC QC JC");
-        Hand handWhite = new Hand("TD TH TC KC 2S");
+        Hand handWhite = new Hand("TD TH TS KS 2S");
 
         Rank rankBlack = new StraightFlushCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue(),
                 new StraightCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()),

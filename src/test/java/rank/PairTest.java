@@ -12,7 +12,7 @@ public class PairTest {
     @Test
     void testPairvsHighCard() {
         Hand handBlack = new Hand("AD AH 9H 8C 2S");
-        Hand handWhite = new Hand("KD QH 9H 8C 2S");
+        Hand handWhite = new Hand("KD QH 9S 8S 2C");
 
         Rank rankBlack = new PairCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new HighCardCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
@@ -34,7 +34,7 @@ public class PairTest {
     @Test
     void testPairvsPair_samePair_3rd_diff() {
         Hand handBlack = new Hand("AD AH TH 8C 2S");
-        Hand handWhite = new Hand("AD AH 9H 8C 2S");
+        Hand handWhite = new Hand("AS AC 9H 8S 2C");
 
         Rank rankBlack = new PairCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();
@@ -45,7 +45,7 @@ public class PairTest {
     @Test
     void testPairvsPair_samePair_noDiff() {
         Hand handBlack = new Hand("AD AH TH 8C 2S");
-        Hand handWhite = new Hand("AD AH TH 8C 2S");
+        Hand handWhite = new Hand("AS AC TC 8S 2C");
 
         Rank rankBlack = new PairCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()).meetCriteria();
         Rank rankWhite = new PairCriteria(handWhite.getCards(), handWhite.sortAndGroupByValue()).meetCriteria();

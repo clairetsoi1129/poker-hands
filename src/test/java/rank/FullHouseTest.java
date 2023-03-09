@@ -64,7 +64,7 @@ public class FullHouseTest {
     @Test
     void testFullHousevsStraight() {
         Hand handBlack = new Hand("AH AC AD JC JH");
-        Hand handWhite = new Hand("KD QH JH TC 9S");
+        Hand handWhite = new Hand("KD QH JD TC 9S");
 
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue(),
                 new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()),
@@ -77,7 +77,7 @@ public class FullHouseTest {
     @Test
     void testFullHousevsFlush() {
         Hand handBlack = new Hand("AH AC AD JH JC");
-        Hand handWhite = new Hand("KH 3H QH JH 9H");
+        Hand handWhite = new Hand("KH 3H QH TH 9H");
 
         Rank rankBlack = new FullHouseCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue(),
                 new ThreeOfAKindCriteria(handBlack.getCards(), handBlack.sortAndGroupByValue()),
